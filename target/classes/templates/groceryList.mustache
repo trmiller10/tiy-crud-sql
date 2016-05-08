@@ -1,0 +1,29 @@
+<html>
+<body>
+
+<h1>Add Item To List</h1>
+
+<form action="/add-grocery-item" method="post">
+    <p>
+        <input type="text" name="name" value="" placeholder="Grocery Item">
+    </p>
+    <p>
+        <input type="text" name="quantity" value="" placeholder="Quantity of Item">
+    </p>
+    <button type="submit">Add</button>
+</form>
+
+<table>
+    <tr>
+        <th>Item</th>
+        <th>Quantity</th>
+    </tr>
+    {{#groceryList}}
+        <tr>
+            <td>{{name}}</td>
+            <td>{{quantity}}</td>
+        </tr>
+    {{/groceryList}}
+</table>
+</body>
+</html>

@@ -1,0 +1,25 @@
+<html>
+<head>
+    <link rel="stylesheet" href="/css/styles.css" />
+</head>
+<body>
+
+<img src="/images/shopping-icon.jpg" />
+
+<h1>Edit Item</h1>
+
+<form action="/edit-grocery-item" method="post">
+    <p>
+        <input type="text" name="name" value="{{item.name}}" placeholder="Grocery Item">
+    </p>
+    <p>
+        <input type="text" name="quantity" value="{{item.quantity}}" placeholder="Quantity of Item">
+    </p>
+    <p>
+        <input type="hidden" name="id" value="{{item.id}}">
+    </p>
+    <button type="submit">Save</button>
+</form>
+
+</body>
+</html>

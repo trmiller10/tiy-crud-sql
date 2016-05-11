@@ -1,5 +1,16 @@
 <html>
+<head>
+    <link rel="stylesheet" href="/css/styles.css" />
+</head>
 <body>
+
+<p>
+    <img src="/images/shopping-icon.jpg" />
+</p>
+
+<p>
+    <a href="/logout">Logout</a>
+</p>
 
 <h1>Add Item To List</h1>
 
@@ -17,11 +28,16 @@
     <tr>
         <th>Item</th>
         <th>Quantity</th>
+        <th>&nbsp;</th>
     </tr>
     {{#groceryList}}
         <tr>
             <td>{{name}}</td>
             <td>{{quantity}}</td>
+            <td>
+                <a href="/edit-grocery-item?id={{id}}">Edit</a>
+                <a href="/delete-grocery-item?id={{id}}">Delete</a>
+            </td>
         </tr>
     {{/groceryList}}
 </table>

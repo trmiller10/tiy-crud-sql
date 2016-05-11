@@ -2,27 +2,11 @@
  * Created by doug on 5/5/16.
  */
 public class User {
-    String name;
-    String password;
+    // todo: add a name property
 
-    public User(String name, String password) {
-        this.name = name;
-        this.password = password;
-    }
+    // todo: add a password property
 
-    public String getName() {
-        return name;
-    }
+    // todo: add a constructor that takes the name and password of the user and configures the object
 
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public String getPassword() {
-        return password;
-    }
-
-    public void setPassword(String password) {
-        this.password = password;
-    }
+    // todo: create getters and setters for name and password
 }

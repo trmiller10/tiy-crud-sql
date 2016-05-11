@@ -11,4 +11,7 @@ public class GroceryItem {
     // create a property for quantity
     String quantity;
 
+    // user
+    User user;
+
 }

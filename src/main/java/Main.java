@@ -1,3 +1,4 @@
+import org.omg.PortableInterceptor.USER_EXCEPTION;
 import spark.ModelAndView;
 import spark.Spark;
 import spark.template.mustache.MustacheTemplateEngine;
@@ -15,7 +16,7 @@ public class Main {
     static HashMap<String, User> users = new HashMap<>();
 
     // create an ArrayList of GroceryItem objects to hold the items we add to our grocery list
-    static ArrayList<GroceryItem> groceryList = new ArrayList<>();
+    static HashMap<String, ArrayList<GroceryItem>> groceryLists = new HashMap<>();
 
     // create a "sequence" variable. This is an integer that represents the next id for a grocery item.
     // Each time you read from it be sure to increment it. Set its initial value to 0.
@@ -60,7 +61,12 @@ public class Main {
                     // create a HashMap to hold our model
                     HashMap<String, Object> m = new HashMap<>();
 
-                    // Put the groceryList into the model
+                    // Get the user from the session
+                    User user = request.session().attribute("user");
+
+                    // Get the user's grocery list
+                    ArrayList<GroceryItem> groceryList = getGroceryItems(user);
+
                     m.put("groceryList", groceryList);
 
                     // return a ModelAndView for the groceryList.mustache template
@@ -83,7 +89,16 @@ public class Main {
                     // Set the item's quantity
                     item.quantity = request.queryParams("quantity");
 
-                    // add the item to the grocery list (the static property defined above)
+                    // set the owner of this grocery item
+                    item.user = request.session().attribute("user");
+
+                    // Get the user from the session
+                    User user = request.session().attribute("user");
+
+                    // Get the user's grocery list
+                    ArrayList<GroceryItem> groceryList = getGroceryItems(user);
+
+                    // add the item to the grocery list
                     groceryList.add(item);
 
                     // redirect to the webroot
@@ -105,8 +120,14 @@ public class Main {
                     // get the id of the item being deleted from the query params and convert it to an integer
                     int id = Integer.parseInt(request.queryParams("id"));
 
+                    // Get the user from the session
+                    User user = request.session().attribute("user");
+
+                    // Get the user's grocery list
+                    ArrayList<GroceryItem> groceryList = getGroceryItems(user);
+
                     // use the getItem() method you create below to get the correct item from the grocery list
-                    GroceryItem item = getItem(id);
+                    GroceryItem item = getItem(groceryList, id);
 
                     // add the item into your m hashmap. Be sure to name the key "item".
                     m.put("item", item);
@@ -123,11 +144,18 @@ public class Main {
                     // get the id of the item being deleted from the query params and convert it to an integer
                     int id = Integer.parseInt(request.queryParams("id"));
 
+                    // Get the user from the session
+                    User user = request.session().attribute("user");
+
+                    // Get the user's grocery list
+                    ArrayList<GroceryItem> groceryList = getGroceryItems(user);
+
                     // get the grocery item from the array list using the getItem() method created below
-                    GroceryItem item = getItem(id);
+                    GroceryItem item = getItem(groceryList, id);
 
                     // update the item's name
                     item.name = request.queryParams("name");
+
                     // update the item's quantity
                     item.quantity = request.queryParams("quantity");
 
@@ -135,6 +163,7 @@ public class Main {
 
                     // redirect to the webroot
                     response.redirect("/");
+
                     // halt this request
                     halt();
 
@@ -149,8 +178,14 @@ public class Main {
                     // get the id of the item being deleted from the query params and convert it to an integer
                     int id = Integer.parseInt(request.queryParams("id"));
 
-                    // use the getItem() method created below to get the item from the list
-                    GroceryItem item = getItem(id);
+                    // Get the user from the session
+                    User user = request.session().attribute("user");
+
+                    // Get the user's grocery list
+                    ArrayList<GroceryItem> groceryList = getGroceryItems(user);
+
+                    // get the grocery item from the array list using the getItem() method created below
+                    GroceryItem item = getItem(groceryList, id);
 
                     // delete this item from the array list
                     groceryList.remove(item);
@@ -212,7 +247,15 @@ public class Main {
 
     }
 
-    static GroceryItem getItem(int id){
+    private static ArrayList<GroceryItem> getGroceryItems(User user) {
+        if(!groceryLists.containsKey(user.name)){
+            groceryLists.put(user.name, new ArrayList<GroceryItem>());
+        }
+
+        return groceryLists.get(user.name);
+    }
+
+    static GroceryItem getItem(ArrayList<GroceryItem> groceryList, int id){
         // loop over the list of grocery items
         for(GroceryItem item : groceryList){
             // does this item's id match the id of the item being deleted?

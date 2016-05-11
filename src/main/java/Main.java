@@ -1,3 +1,4 @@
+import org.omg.PortableInterceptor.USER_EXCEPTION;
 import spark.ModelAndView;
 import spark.Spark;
 import spark.template.mustache.MustacheTemplateEngine;
@@ -7,18 +8,18 @@ import java.util.HashMap;
 
 import static spark.Spark.halt;
 
-
+/**
+ * Created by doug on 5/8/16.
+ */
 public class Main {
     // I'm providing this as a pseudo-database of users.
     // See addUsers below for the set of users who can login
     static HashMap<String, User> users = new HashMap<>();
 
-    // todo: create an ArrayList of GroceryItem objects to hold the items we add to our grocery list
-
+    // todo: create a HashMap that maps usernames to ArrayLists containing GroceryItem objects. (HashMap<String, ArrayList<GroceryItem>>)
 
     // todo: create a "sequence" variable. This is an integer that represents the next id for a grocery item.
     // todo: Each time you read from it be sure to increment it. Set its initial value to 0.
-
 
     public static void main(String[] args){
         // this adds test users to the application.
@@ -59,7 +60,12 @@ public class Main {
                     // todo: create a HashMap to hold our model
 
 
-                    // todo: Put the groceryList into the model
+                    // todo: Get the user from the session
+
+                    // todo: user the getGroceryItems() method you created below to get a list of the user's own grocery items
+
+
+                    // todo: Put the user's grocery list into the model
 
 
                     // todo: return a ModelAndView for the groceryList.mustache template
@@ -71,8 +77,8 @@ public class Main {
         Spark.post(
                 "/add-grocery-item",
                 (request, response) -> {
-                    // // todo: create a new GroceryItem
-
+                    // todo: create a new GroceryItem
+                    GroceryItem item = new GroceryItem();
 
                     // todo: Determine the next value in the sequence sequence. If it's currently 1, return 2. Then,
                     // todo: set the item's id using the next value in the sequence
@@ -82,6 +88,9 @@ public class Main {
 
                     // todo: Set the item's quantity
 
+                    // todo: Get the user from the session
+
+                    // todo: Get the user's grocery list using the getGroceryItems() method you created below
 
                     // todo: add the item to the grocery list (the static property defined above)
 
@@ -100,8 +109,11 @@ public class Main {
                 (request, response) -> {
                     // todo: create a map to hold your model values
 
-
                     // todo: get the id of the item being deleted from the query params and convert it to an integer
+
+                    // todo: Get the user from the session
+
+                    // todo: Get the user's grocery list using the method below
 
 
                     // todo: use the getItem() method you create below to get the correct item from the grocery list
@@ -109,8 +121,8 @@ public class Main {
 
                     // todo: add the item into your m hashmap. Be sure to name the key "item".
 
+
                     // todo: return a new model and view object for the grocery item edit form, groceryItemForm.mustache
-                    return new ModelAndView(m, "groceryItemForm.mustache");
                 },
                 new MustacheTemplateEngine()
         );
@@ -121,8 +133,11 @@ public class Main {
                 (request, response) -> {
                     // todo: get the id of the item being deleted from the query params and convert it to an integer
 
-                    // todo: get the grocery item from the array list using the getItem() method created below
+                    // todo: Get the user from the session
 
+                    // todo: Get the user's grocery list
+
+                    // todo: use getItem() to get the item being edited from the user's grocery list
 
                     // todo: update the item's name
 
@@ -143,9 +158,11 @@ public class Main {
                 (request, response) -> {
                     // todo: get the id of the item being deleted from the query params and convert it to an integer
 
+                    // todo: Get the user from the session
 
-                    // todo: use the getItem() method created below to get the item from the list
+                    // todo: Get the user's grocery list
 
+                    // todo: use getItem() to get the item being edited from the user's grocery list
 
                     // todo: delete this item from the array list
 
@@ -180,7 +197,7 @@ public class Main {
 
                     // todo: if the user is not null and the user's password equals the submitted password
 
-                        // todo: add the user to the session
+                    // todo: add the user to the session
 
 
                     // todo: redirect to the webroot
@@ -206,15 +223,23 @@ public class Main {
                     // todo: return null
                 }
         );
+    }
+
+    private static ArrayList<GroceryItem> getGroceryItems(User user) {
+        // todo: check if we have an array list in the groceryLists "global" variable already.
+
+            // todo: if not, create an empty array list and assign it into the hashmap. Use the user's name as the key.
+
+        // return the arraylist of groceries for this user. Use their name as the key in the hashmap
 
     }
 
-    static GroceryItem getItem(int id){
+    static GroceryItem getItem(ArrayList<GroceryItem> groceryList, int id){
         // todo: loop over the list of grocery items
 
-            // todo: check if this item's id match the id of the item being deleted.
+        // todo: check if this item's id match the id of the item being deleted.
 
-                // todo: if so, return this item
+        // todo: if so, return this item
 
 
         // it's possible that the list of grocery items is empty or the id provided isn't actually in the list.

@@ -20,7 +20,17 @@ public class Main {
 
     // create a HashMap that maps usernames to ArrayLists containing GroceryItem objects. (HashMap<String, ArrayList<GroceryItem>>)
     static HashMap<String, ArrayList<GroceryItem>> groceryMap = new HashMap<>();
+
+
+
+
+    //TRM: added this because comment on line 136 in /add-grocery-item route threw me for a loop when trying to get getGroceryItems() to work
+
+
     static ArrayList<GroceryItem> groceryList = new ArrayList<>();
+
+
+
 
 
     // todo: create a "sequence" variable. This is an integer that represents the next id for a grocery item.
@@ -122,6 +132,8 @@ public class Main {
 
                     // todo: Get the user's grocery list using the getGroceryItems() method you created below
                     // todo: add the item to the grocery list (the static property defined above)
+
+                    //have no idea what you meant by 'static property defined above'.  Was I supposed to create a static Array List?
                     getGroceryItems(user).add(groceryItem);
 
                     // todo: redirect to the webroot
@@ -284,6 +296,12 @@ public class Main {
 
     private static ArrayList<GroceryItem> getGroceryItems(User user) {
         // todo: check if we have an array list in the groceryLists "global" variable already.
+
+        //not sure what you meant by global variable.
+
+        //heck, i'm not sure what getGroceryItems() is supposed to be.  A method?  An arraylist?
+
+
         boolean arrayListExists = groceryMap.containsValue(groceryList);
 
         // todo: if not, create an empty array list and assign it into the hashmap. Use the user's name as the key.
@@ -291,6 +309,9 @@ public class Main {
             groceryMap.put(user.name, groceryList);
         }
             // todo: return the arraylist of groceries for this user. Use their name as the key in the hashmap
+
+        //tried to figure out a way to get a new array list in above if loop to be returned but had no luck
+        //went ahead and created a static array list
             return groceryList;
 
     }

@@ -1,5 +1,6 @@
 import org.omg.PortableInterceptor.USER_EXCEPTION;
 import spark.ModelAndView;
+import spark.Session;
 import spark.Spark;
 import spark.template.mustache.MustacheTemplateEngine;
 
@@ -10,15 +11,20 @@ import static spark.Spark.halt;
 
 /**
  * Created by doug on 5/8/16.
+ * Started by Taylor on 5/113/16.
  */
 public class Main {
     // I'm providing this as a pseudo-database of users.
     // See addUsers below for the set of users who can login
     static HashMap<String, User> users = new HashMap<>();
 
-    // todo: create a HashMap that maps usernames to ArrayLists containing GroceryItem objects. (HashMap<String, ArrayList<GroceryItem>>)
+    // create a HashMap that maps usernames to ArrayLists containing GroceryItem objects. (HashMap<String, ArrayList<GroceryItem>>)
+    static HashMap<String, ArrayList<GroceryItem>> groceryMap = new HashMap<>();
+    static ArrayList<GroceryItem> groceryList = new ArrayList<>();
+
 
     // todo: create a "sequence" variable. This is an integer that represents the next id for a grocery item.
+    static int sequence = 0;
     // todo: Each time you read from it be sure to increment it. Set its initial value to 0.
 
     public static void main(String[] args){
@@ -49,8 +55,9 @@ public class Main {
                     if(request.session().attributes().contains("user")) return;
 
                     // todo: redirect to the login page
-
+                    response.redirect("/login");
                     // todo: halt the request
+                    halt();
                 }
         );
 
@@ -58,52 +65,82 @@ public class Main {
                 "/",
                 (request, response) -> {
                     // todo: create a HashMap to hold our model
+                    HashMap hashMapModel = new HashMap();
 
 
                     // todo: Get the user from the session
+                    //if(request.session().attributes().contains("user")) {
 
-                    // todo: user the getGroceryItems() method you created below to get a list of the user's own grocery items
+                    Session session = request.session();
+                    User user = session.attribute("user");
 
+
+
+
+                        // todo: user the getGroceryItems() method you created below to get a list of the user's own grocery items
 
                     // todo: Put the user's grocery list into the model
+                    hashMapModel.put("user", getGroceryItems(user));
 
 
                     // todo: return a ModelAndView for the groceryList.mustache template
+                        return new ModelAndView(hashMapModel, "groceryList.mustache");
 
-                },
+                    },
                 new MustacheTemplateEngine()
         );
 
         Spark.post(
                 "/add-grocery-item",
                 (request, response) -> {
-                    // todo: create a new GroceryItem
-                    GroceryItem item = new GroceryItem();
+                    int id = 0;
+                    String name = new String();
+                    String quantity = new String();
+                    //GroceryItem groceryItem = new GroceryItem(id, name, quantity);
 
+
+
+                    // todo: create a new GroceryItem
+                   //GroceryItem groceryItem = new GroceryItem(sequence, request.queryParams("name"), request.queryParams("quantity"));
+                    GroceryItem groceryItem = new GroceryItem(id, name, quantity);
                     // todo: Determine the next value in the sequence sequence. If it's currently 1, return 2. Then,
+                    sequence = sequence+1;
                     // todo: set the item's id using the next value in the sequence
+                     groceryItem.setId(sequence);
                     // todo: update the sequence to *be* the next value. That way when you come here again you'll get 2 instead of 1.
 
+
                     // todo: Set the item's name
+                    groceryItem.setItemName(request.queryParams("name"));
 
                     // todo: Set the item's quantity
+                    groceryItem.setItemQuantity(request.queryParams("quantity"));
 
                     // todo: Get the user from the session
+                    Session session = request.session();
+                    User user = session.attribute("user");
 
                     // todo: Get the user's grocery list using the getGroceryItems() method you created below
-
                     // todo: add the item to the grocery list (the static property defined above)
-
+                    getGroceryItems(user).add(groceryItem);
 
                     // todo: redirect to the webroot
+                    response.redirect("/");
 
                     // todo: halt this request
+                    halt();
 
                     // todo: return null
+                    return null;
+
                 }
         );
 
+
+
+
         // note that this is a get method. There is also a past method with the same endpoint
+        /*
         Spark.get(
                 "/edit-grocery-item",
                 (request, response) -> {
@@ -126,6 +163,10 @@ public class Main {
                 },
                 new MustacheTemplateEngine()
         );
+
+       */
+
+
 
         // note that this is a post method. There is also a get method with the same endpoint
         Spark.post(
@@ -150,6 +191,7 @@ public class Main {
                     // todo: halt this request
 
                     // todo: return null
+                    return null;
                 }
         );
 
@@ -157,12 +199,18 @@ public class Main {
                 "/delete-grocery-item",
                 (request, response) -> {
                     // todo: get the id of the item being deleted from the query params and convert it to an integer
+                    //GroceryItem deleteItemId = new GroceryItem(request.queryParams("deleteItem"));
 
                     // todo: Get the user from the session
+                    //User user = new User("user", request.session().attribute("user"));
 
                     // todo: Get the user's grocery list
+                    //groceryMap.get(user).getItem();
 
                     // todo: use getItem() to get the item being edited from the user's grocery list
+
+
+
 
                     // todo: delete this item from the array list
 
@@ -172,7 +220,8 @@ public class Main {
                     // todo: halt this request
 
 
-                    // todo: return null
+                    // return null
+                    return null;
                 }
         );
 
@@ -180,6 +229,7 @@ public class Main {
                 "/login",
                 (request, response) -> {
                     // todo: return a ModelAndView for the loginForm.mustache
+                    return new ModelAndView(users, "loginForm.mustache");
 
                 },
                 new MustacheTemplateEngine()
@@ -189,23 +239,28 @@ public class Main {
                 "/login",
                 (request, response) -> {
                     // todo: get the username that was posted
+                    String submittedName = request.queryParams("username");
 
                     // todo: get the password that was posted
+                    String submittedPassword = request.queryParams("password");
 
-                    // todo: get the matching user (if any) from the ArrayList of users (defined at the top of this file)
-
+                    // todo: get the matching user (if any) from the >ArrayList< HashMap of users (defined at the top of this file)
+                    User user = users.get(submittedName);
 
                     // todo: if the user is not null and the user's password equals the submitted password
+                    if(user != null && (submittedPassword.equals(user.password))) {
 
-                    // todo: add the user to the session
+                        // todo: add the user to the session
+                        request.session().attribute("user", user);
 
+                        // todo: redirect to the webroot
+                        response.redirect("/");
 
-                    // todo: redirect to the webroot
-
-                    // todo: halt this request
-
-
+                        // todo: halt this request
+                        halt();
+                    }
                     // todo: return null
+                    return null;
 
                 }
         );
@@ -214,29 +269,38 @@ public class Main {
                 "/logout",
                 (request, response) -> {
                     // todo: invalidate the user's session
-
+                    request.session().invalidate();
                     // todo: redirect to the webroot
-
+                    response.redirect("/");
                     // todo: halt this request
-
+                    halt();
 
                     // todo: return null
+                    return null;
                 }
         );
     }
 
+
     private static ArrayList<GroceryItem> getGroceryItems(User user) {
         // todo: check if we have an array list in the groceryLists "global" variable already.
+        boolean arrayListExists = groceryMap.containsValue(groceryList);
 
-            // todo: if not, create an empty array list and assign it into the hashmap. Use the user's name as the key.
-
-        // return the arraylist of groceries for this user. Use their name as the key in the hashmap
+        // todo: if not, create an empty array list and assign it into the hashmap. Use the user's name as the key.
+        if (!arrayListExists) {
+            groceryMap.put(user.name, groceryList);
+        }
+            // todo: return the arraylist of groceries for this user. Use their name as the key in the hashmap
+            return groceryList;
 
     }
 
+
     static GroceryItem getItem(ArrayList<GroceryItem> groceryList, int id){
         // todo: loop over the list of grocery items
+        //for(GroceryItem groceryItem : groceryList){
 
+        //groceryList.forEach(GroceryItem -> GroceryItem.id == new GroceryItem());
         // todo: check if this item's id match the id of the item being deleted.
 
         // todo: if so, return this item

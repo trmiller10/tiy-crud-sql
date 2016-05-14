@@ -7,6 +7,8 @@ import spark.template.mustache.MustacheTemplateEngine;
 import java.util.ArrayList;
 import java.util.HashMap;
 
+import static spark.Spark.delete;
+import static spark.Spark.get;
 import static spark.Spark.halt;
 
 /**
@@ -85,13 +87,11 @@ public class Main {
                     User user = session.attribute("user");
 
 
-
-
                         // todo: user the getGroceryItems() method you created below to get a list of the user's own grocery items
 
                     // todo: Put the user's grocery list into the model
-                    hashMapModel.put("user", getGroceryItems(user));
-
+                    //hashMapModel.put("groceryList", getGroceryItems(user));
+                    hashMapModel.put("groceryList", getGroceryItems(user));
 
                     // todo: return a ModelAndView for the groceryList.mustache template
                         return new ModelAndView(hashMapModel, "groceryList.mustache");
@@ -103,16 +103,18 @@ public class Main {
         Spark.post(
                 "/add-grocery-item",
                 (request, response) -> {
+                    /*
                     int id = 0;
                     String name = new String();
                     String quantity = new String();
+                    */
                     //GroceryItem groceryItem = new GroceryItem(id, name, quantity);
 
 
 
                     // todo: create a new GroceryItem
-                   //GroceryItem groceryItem = new GroceryItem(sequence, request.queryParams("name"), request.queryParams("quantity"));
-                    GroceryItem groceryItem = new GroceryItem(id, name, quantity);
+                    GroceryItem groceryItem = new GroceryItem(sequence, request.queryParams("name"), request.queryParams("quantity"));
+                    //GroceryItem groceryItem = new GroceryItem(id, name, quantity);
                     // todo: Determine the next value in the sequence sequence. If it's currently 1, return 2. Then,
                     sequence = sequence+1;
                     // todo: set the item's id using the next value in the sequence
@@ -152,31 +154,33 @@ public class Main {
 
 
         // note that this is a get method. There is also a past method with the same endpoint
-        /*
+
         Spark.get(
                 "/edit-grocery-item",
                 (request, response) -> {
                     // todo: create a map to hold your model values
+                    HashMap m = new HashMap();
 
                     // todo: get the id of the item being deleted from the query params and convert it to an integer
+                    String id = request.queryParams("id");
+                    int editId = Integer.valueOf(id);
 
                     // todo: Get the user from the session
+                    User user = request.session().attribute("user");
 
                     // todo: Get the user's grocery list using the method below
-
+                    getGroceryItems(user);
 
                     // todo: use the getItem() method you create below to get the correct item from the grocery list
-
-
                     // todo: add the item into your m hashmap. Be sure to name the key "item".
-
+                    m.put("item", getItem(groceryList, editId));
 
                     // todo: return a new model and view object for the grocery item edit form, groceryItemForm.mustache
+                    return new ModelAndView(m, "groceryItemForm.mustache");
                 },
                 new MustacheTemplateEngine()
         );
 
-       */
 
 
 
@@ -185,22 +189,33 @@ public class Main {
                 "/edit-grocery-item",
                 (request, response) -> {
                     // todo: get the id of the item being deleted from the query params and convert it to an integer
+                    String id = request.queryParams("id");
+
+                    int editId = Integer.valueOf(id);
 
                     // todo: Get the user from the session
+                    User user = request.session().attribute("user");
 
                     // todo: Get the user's grocery list
+                    getGroceryItems(user);
 
                     // todo: use getItem() to get the item being edited from the user's grocery list
+                    GroceryItem groceryItem = new GroceryItem(sequence, request.queryParams("name"), request.queryParams("quantity"));
+                    groceryItem = getItem(groceryList, editId);
 
                     // todo: update the item's name
+                    groceryItem.setItemName(request.queryParams("name"));
 
                     // todo: update the item's quantity
+                    groceryItem.setItemQuantity(request.queryParams("quantity"));
 
                     // note: (no code to write here) we don't need to add this item into the grocery list because it's already there.
 
                     // todo: redirect to the webroot
+                    response.redirect("/");
 
                     // todo: halt this request
+                    halt();
 
                     // todo: return null
                     return null;
@@ -211,25 +226,28 @@ public class Main {
                 "/delete-grocery-item",
                 (request, response) -> {
                     // todo: get the id of the item being deleted from the query params and convert it to an integer
-                    //GroceryItem deleteItemId = new GroceryItem(request.queryParams("deleteItem"));
+                    String id = request.queryParams("id");
+                    int deleteId = Integer.valueOf(id);
 
                     // todo: Get the user from the session
-                    //User user = new User("user", request.session().attribute("user"));
+                    User user = request.session().attribute("user");
 
                     // todo: Get the user's grocery list
-                    //groceryMap.get(user).getItem();
+                    getGroceryItems(user);
 
                     // todo: use getItem() to get the item being edited from the user's grocery list
-
-
-
+                    GroceryItem deleteGroceryItem = new GroceryItem(sequence, request.queryParams("name"), request.queryParams("quantity"));
+                    deleteGroceryItem = getItem(groceryList, deleteId);
 
                     // todo: delete this item from the array list
+                    groceryList.remove(deleteGroceryItem);
 
 
                     // todo: redirect to the webroot
+                    response.redirect("/");
 
                     // todo: halt this request
+                    halt();
 
 
                     // return null
@@ -317,21 +335,24 @@ public class Main {
     }
 
 
-    static GroceryItem getItem(ArrayList<GroceryItem> groceryList, int id){
+    static GroceryItem getItem(ArrayList<GroceryItem> groceryList, int id) {
         // todo: loop over the list of grocery items
-        //for(GroceryItem groceryItem : groceryList){
+        for (GroceryItem groceryItem : groceryList) {
 
-        //groceryList.forEach(GroceryItem -> GroceryItem.id == new GroceryItem());
-        // todo: check if this item's id match the id of the item being deleted.
-
-        // todo: if so, return this item
-
-
-        // it's possible that the list of grocery items is empty or the id provided isn't actually in the list.
-        // If that happens we won't reach the return statement in the loop above. Because of this we must add
-        // a default return statement that returns null.
+            //groceryList.forEach(GroceryItem -> GroceryItem.id == new GroceryItem());
+            // todo: check if this item's id match the id of the item being deleted.
+            if (id == groceryItem.id) {
+                // todo: if so, return this item
+                return groceryItem;
+            }
+                // it's possible that the list of grocery items is empty or the id provided isn't actually in the list.
+                // If that happens we won't reach the return statement in the loop above. Because of this we must add
+                // a default return statement that returns null.
+        }
         return null;
     }
+
+
 
     // this method adds a set of test users to log in with.
     static void addTestUsers() {

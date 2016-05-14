@@ -328,7 +328,7 @@ public class Main {
         }
             // todo: return the arraylist of groceries for this user. Use their name as the key in the hashmap
 
-        //tried to figure out a way to get a new array list in above if loop to be returned but had no luck
+        //TRM: tried to figure out a way to get a new array list in above if loop to be returned but had no luck
         //went ahead and created a static array list
             return groceryList;
 

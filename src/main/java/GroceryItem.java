@@ -6,6 +6,10 @@ public class GroceryItem {
     // todo: create an id, default it to 1
     int id = 1;
 
+    //User createdByUser;
+
+    int userId;
+
 
     // todo: create a property for name
     String itemName;
@@ -14,12 +18,21 @@ public class GroceryItem {
     //made it a string so that you can enter "half a dozen" or "1.4 lbs"
     String itemQuantity;
 
-    public GroceryItem(int id, String itemName, String itemQuantity) {
+    public GroceryItem(int id, String itemName, String itemQuantity, int userId) {
         this.id = id;
         this.itemName = itemName;
         this.itemQuantity = itemQuantity;
+        this.userId = userId;
     }
 
+    public GroceryItem(){
+
+    }
+
+    public GroceryItem(String itemName, String itemQuantity){
+        this.itemName = itemName;
+        this.itemQuantity = itemQuantity;
+    }
     public int getId() {
         return id;
     }
@@ -42,5 +55,13 @@ public class GroceryItem {
 
     public void setItemQuantity(String itemQuantity) {
         this.itemQuantity = itemQuantity;
+    }
+
+    public int getUserId() {
+        return userId;
+    }
+
+    public void setUserId(int userId) {
+        this.userId = userId;
     }
 }

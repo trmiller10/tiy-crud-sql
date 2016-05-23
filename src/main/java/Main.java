@@ -107,27 +107,28 @@ public class Main {
                     //   create a HashMap to hold our model
                     HashMap hashMapModel = new HashMap();
 
-/*
-                    //   Get the user from the session
-                    if(request.session().attributes().contains("user")) {
 
+                    //   Get the user from the session
+                    request.session().attributes().contains("user");
                     Session session = request.session();
                     User user = session.attribute("user");
+                    int id = user.getId();
 
 
-                    //   user the getGroceryItems() method you created below to get a list of the user's own grocery items
+                        //   user the getGroceryItems() method you created below to get a list of the user's own grocery items
+                    //ArrayList<GroceryItem> userArrayList = crudService.selectEntries(connection, id);
 
                     //   Put the user's grocery list into the model
-                    //hashMapModel.put("groceryList", getGroceryItems(user));
-                    hashMapModel.put("groceryList", getGroceryItems(user));
-*/
-                    //   return a ModelAndView for the groceryList.mustache template
+                    //hashMapModel.put("groceryList", userArrayList);
+
+                        //   return a ModelAndView for the groceryList.mustache template
                     return new ModelAndView(hashMapModel, "groceryList.mustache");
 
-
-                },
-                new MustacheTemplateEngine()
+                    },
+                    new MustacheTemplateEngine()
         );
+
+
 
         Spark.get(
                 "/login",
@@ -156,7 +157,7 @@ public class Main {
                     //  check the entered user's data against the current database of users
                     //create an H2 database for User
                     //create a selectUser method
-                    User checkUser = crudService.selectUser(enteredUser, submittedName);
+                    User checkUser = crudService.selectUser(connection, submittedName);
 
                     //return any users with the same username as the entered user
                     //if the entered user does not match any users in the database, then redirect back to /login with an error message
@@ -214,7 +215,7 @@ public class Main {
                 }
         );
 
-
+/*
         Spark.post(
                 "/add-grocery-item",
                 (request, response) -> {
@@ -231,7 +232,7 @@ public class Main {
                 }
 
         );
-
+*/
 
 
                     /* OLD CODE

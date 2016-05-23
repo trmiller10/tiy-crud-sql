@@ -22,7 +22,7 @@ import static org.hamcrest.MatcherAssert.assertThat;
  */
 public class CrudServiceTest {
 
- /*
+
     //create a connection to be shared across the entire class
     Connection connection;
 
@@ -40,14 +40,14 @@ public class CrudServiceTest {
         crudService = new CrudService(connection);
     }
 
-    *//**
+    /**
      * Given: a new database
      * When: database is initialized
      * Then: we get two tables: User and GroceryItem
-     *//*
+     */
 
     @Test
-    public void whenInitializedThenUserAndGroceryItemTablesCreated() throws SQLException {
+    public void testInitialization() throws SQLException {
         //arrange
         CrudService service = new CrudService(connection);
 
@@ -72,39 +72,43 @@ public class CrudServiceTest {
 
     //todo: create a test for insertUser and selectUser
 
-    *//**
+    /**
      * Given: user database
      * When: a new user is inserted
      * Then: then user id is set and user exists in database
-     *//*
+     */
 
     @Test
-    public void whenUserInsertedThenUserExists() throws SQLException {
+    public void whenUserInsertedThenUserExists() throws SQLException, InterruptedException {
 
         //arrange
         CrudService service = new CrudService(connection);
-        User user = new User("test", "password");
+        service.insertUser(connection, "test", "pw");
 
         //act
-        service.insertUser(user);
-
+        User user = service.selectUser(connection, "test");
+        connection.close();
         //assert
-        assertThat(user.getId(), not(0));
+        assertThat(user.getName(), is("test"));
+        int id = user.getId();
+
+        while (true) {
+            Thread.sleep(100);
+        }
     }
 
-    *//**
+    /**
      * Given: user database containing users
      * When: a user is selected by entering user's name
      * Then: the user object associated with that user name is returned
-     *//*
-
+     */
+/*
     @Test
     public void whenUserSelectedThenUserReturned() throws SQLException {
 
         //arrange
         CrudService service = new CrudService(connection);
-        User user = new User("testSelect", "password");
-        service.insertUser(user);
+        service.insertUser(connection, "test", "password");
 
         //make sure that I'm actually testing the returned user and not the instance of
         //user that i created above in this test
@@ -115,27 +119,37 @@ public class CrudServiceTest {
         assertThat(newUser.getName(), is("testSelect"));
 
     }
-
-    *//**
+*/
+    /**
      * Given: an initialized grocery item database
      * When: a grocery item is inserted
      * Then: grocery item id is set and grocery item exists in database
-     *//*
+     */
+
     @Test
-    public void whenGroceryItemInsertedThenGroceryItemExists() throws SQLException {
+    public void testGroceryItemDatabase() throws SQLException, InterruptedException {
 
         //arrange
         CrudService service = new CrudService(connection);
-        GroceryItem testGroceryItem = new GroceryItem(1, "test", "a lot of");
-
+        service.insertUser(connection, "test", "pw");
+        User testUser = service.selectUser(connection, "test");
+        GroceryItem testItem = new GroceryItem(0, "apples", "a lot", testUser.getId());
         //act
-        service.insertEntry(testGroceryItem);
+        service.insertEntry(connection, testItem.getId(), testItem.getItemName(), testItem.getItemQuantity(), testItem.getUserId());
 
+        GroceryItem returnedItem = service.selectEntry(connection, testItem.getId());
+
+        connection.close();
         //assert
-        assertThat(testGroceryItem.getId(), not(0));
+        assertThat(returnedItem.getItemName(), is("apples"));
+/*
+        while(true) {
+            Thread.sleep(100);
+        }
+        */
     }
 
-    *//**
+    /**
      * Given: a grocery item database with grocery item entries
      * When: a grocery item is selected by entering its name
      * Then: the grocery item associated with that name is returned
@@ -179,13 +193,12 @@ public class CrudServiceTest {
         assertThat(3, is(selectList.size()));
 
     }
-*//*
-    *//*
+
     @After
     public void after() throws SQLException {
         //close the connection
         connection.close();
-
+        /*
         //deletes any database files in ~/Projects/ForumWeb/data
         File dataFolder = new File("data");
         if(dataFolder.exists()) {
@@ -194,10 +207,10 @@ public class CrudServiceTest {
                     file.delete();
                 }
             }
-        }
+        }*/
     }
-*/
-}
+
+
 
     //todo: create a test for updateEntry and deleteEntry
 

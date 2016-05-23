@@ -6,5 +6,10 @@
       <schema-pattern>MAIN.PUBLIC</schema-pattern>
       <default-schemas>MAIN.PUBLIC</default-schemas>
     </data-source>
+    <data-source name="H2 - test@localhost" uuid="3eef05a6-7c24-4141-9211-36c3ddb7dde7">
+      <secret-storage>master_key</secret-storage>
+      <schema-pattern>TEST.PUBLIC</schema-pattern>
+      <default-schemas>TEST.PUBLIC</default-schemas>
+    </data-source>
   </component>
 </project>

@@ -48,32 +48,32 @@ CREATE TABLE IF NOT EXISTS groceryItem
         statement.execute("CREATE TABLE IF NOT EXISTS user (id IDENTITY, name VARCHAR, password VARCHAR)");
         statement.execute("CREATE TABLE IF NOT EXISTS groceryItem (id IDENTITY, itemName VARCHAR, itemQuantity VARCHAR,  userId INT)");
         statement.execute("INSERT INTO user VALUES (NULL, 'andrew', 'password')");
-        statement.execute("INSERT INTO groceryItem VALUES (NULL, 'apples', 'quite a few', 0)");
+        //statement.execute("INSERT INTO groceryItem VALUES (NULL, 'apples', 'quite a few', 1)");
     }
 
     //todo: create insertUser method
     //this will create a new record in the users table
-    public void insertUser(User user) throws SQLException {
+    public void insertUser(Connection connection, String name, String password) throws SQLException {
         //create prepared statement
         PreparedStatement preparedStatement = connection.prepareStatement("INSERT INTO user VALUES (NULL, ?, ?)");
 
         //set strings into statement by getting name and password
-        preparedStatement.setString(1, user.getName());
-        preparedStatement.setString(2, user.getPassword());
+        preparedStatement.setString(1, name);
+        preparedStatement.setString(2, password);
 
-        preparedStatement.executeUpdate();
+        preparedStatement.execute();
 
         //getGeneratedKeys() will return the generated id
-        ResultSet resultSet = preparedStatement.getGeneratedKeys();
-        resultSet.next(); //read the first line of results
+        //ResultSet resultSet = preparedStatement.getGeneratedKeys();
+        //resultSet.next(); //read the first line of results
         //set the generated id into user
-        user.setId(resultSet.getInt(1));
+        //user.setId(resultSet.getInt(1));
     }
 
 
     //todo: create a selectUser method
     //this will return a User object for the given username
-    public User selectUser(User user, String name) throws SQLException {
+    public User selectUser(Connection connection, String name) throws SQLException {
         //create prepared statement
         PreparedStatement preparedStatement = connection.prepareStatement("SELECT * FROM user WHERE name =?");
 
@@ -81,62 +81,66 @@ CREATE TABLE IF NOT EXISTS groceryItem
 
         ResultSet resultSet = preparedStatement.executeQuery();
 
-        while (resultSet.next()) {
-            if (user.name == name) {
-                User selectedUser = new User(
-                        resultSet.getString("name"),
-                        resultSet.getString("password")
-                );
-                return selectedUser;
+            if (resultSet.next()) {
+                int id = resultSet.getInt("id");
+                String password = resultSet.getString("password");
+                return new User(id, name, password);
             }
-        }
         return null;
     }
 
+
     //todo: create insertEntry method
     //this will create a new record for thing I'm tracking
-    public void insertEntry(GroceryItem groceryItem, User user) throws SQLException {
+    public void insertEntry(Connection connection, int itemId, String itemName, String itemQuantity, int userId) throws SQLException {
         //create prepared statement
         PreparedStatement preparedStatement = connection.prepareStatement("INSERT INTO groceryItem VALUES (NULL, ?, ?, ?)");
 
         //set strings into statement by getting itemName and itemQuantity
-        preparedStatement.setString(1,groceryItem.getItemName());
-        preparedStatement.setString(2,groceryItem.getItemQuantity());
-        preparedStatement.setInt(3, user.getId());
+        preparedStatement.setString(1, itemName);
+        preparedStatement.setString(2, itemQuantity);
+        preparedStatement.setInt(3, itemId);
 
         preparedStatement.executeUpdate();
-
+/*
     //getGeneratedKeys() will return the generated id
         ResultSet resultSet = preparedStatement.getGeneratedKeys();
         resultSet.next(); //read the first line of results
     //set the generated id into groceryItem
         groceryItem.setId(resultSet.getInt(1));
+        */
     }
 
-/*
+
     //todo: create selectEntry method
     //this will return a new object for the given ID
-    public GroceryItem selectEntry(GroceryItem groceryItem, int id) throws SQLException {
+    public GroceryItem selectEntry(Connection connection, int selectId) throws SQLException {
         //create prepared statement
-        PreparedStatement preparedStatement = connection.prepareStatement("SELECT * FROM groceryItem INNER JOIN users ON user.id = groceryItem.user_id WHERE id =?");
+        //it turns out i don't need an inner join for this query because i don't have a User propery in my GroceryItem class
+        //inner join would be necessary if i needed to pull out the User object that is intrinsically part of the GroceryItem class
+        //but since I have GroceryItem with just a foreign key pointing to the Id of the User (userId), I just need to pull out the GroceryItem related to the Id of the GroceryItem that is queried
+        //However, it is preferred when working with Java to make the User object an inherent property of the GroceryItem class because that is the point of object-oriented programming
+        //to have the objects relate directly to each other instead of pointing to each other indirectly
+        PreparedStatement preparedStatement = connection.prepareStatement("SELECT * FROM groceryItem INNER JOIN user ON groceryItem.userId = user.id WHERE groceryItem.id = ?");
 
-        preparedStatement.setInt(1, id);
+        preparedStatement.setInt(1, selectId);
 
+        //resultSet is returned null because User is not even being joined here
         ResultSet resultSet = preparedStatement.executeQuery();
 
-        while (resultSet.next()) {
-            if (groceryItem.id == id) {
-                GroceryItem selectedGroceryItem = new GroceryItem(
-                        resultSet.getInt("id"),
-                        resultSet.getString("itemName"),
-                        resultSet.getString("password")
-                );
-                return selectedGroceryItem;
-            }
+        GroceryItem groceryItem = null;
+
+        if (resultSet.next()) {
+            int itemId = resultSet.getInt("id");
+            String itemName = resultSet.getString("itemName");
+            String itemQuantity = resultSet.getString("itemQuantity");
+            int userId = resultSet.getInt("userId");
+            return new GroceryItem(itemId, itemName, itemQuantity, userId);
         }
         return null;
     }
-*/
+
+
 
     //todo: this query should use an INNER JOIN between users and entries table
 
@@ -145,25 +149,26 @@ CREATE TABLE IF NOT EXISTS groceryItem
     //todo: create a selectEntries method
     //this will return an Arraylist of all objects I am tracking
 /*
-    public ArrayList<GroceryItem> selectEntries(Connection connection) throws SQLException {
+    public ArrayList<GroceryItem> selectEntries(Connection connection, int id) throws SQLException {
         ArrayList<GroceryItem> userGroceryList = new ArrayList<>();
-        PreparedStatement preparedStatement = connection.prepareStatement("SELECT * FROM groceryItem INNER JOIN users ON groceryitem.userId WHERE user.id");
-
+        PreparedStatement preparedStatement = connection.prepareStatement("SELECT * FROM groceryItem INNER JOIN user ON user.id = GROCERYITEM.USERID WHERE user.id = ?");
+        preparedStatement.setInt(1, id);
         ResultSet resultSet = preparedStatement.executeQuery();
-
-        while(resultSet.next()) {
+        //  while(resultSet.next()){
             int itemId = resultSet.getInt("id");
             String itemName = resultSet.getString("itemName");
             String itemQuantity = resultSet.getString("itemQuantity");
-            GroceryItem groceryItem = new GroceryItem(itemId, itemName, itemQuantity);
-            usersGroceryList.add(groceryItem);
+            int userId = resultSet.getInt("userId");
+            GroceryItem groceryItem = new GroceryItem(itemId, itemName, itemQuantity, userId);
+            userGroceryList.add(groceryItem);
 
-        } return usersGroceryList;
+        //}
+    return userGroceryList;
         //todo: this query should use an INNER JOIN between users and entries table
 
     }
-
 */
+
 
     //todo: create a test for selectEntries
 

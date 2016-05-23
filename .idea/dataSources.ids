@@ -7,14 +7,34 @@
     <case-sensitivity plain-identifiers="upper" quoted-identifiers="exact"/>
     <schema name="PUBLIC" catalog="MAIN"/>
     <table name="GROCERYITEM" schema="PUBLIC" catalog="MAIN" type="TABLE">
-      <column name="ID" sqlType="BIGINT" precision="19" scale="0" nullable="false" jdbcType="-5" def="KE5FWFQgVkFMVUUgRk9SIFBVQkxJQy5TWVNURU1fU0VRVUVOQ0VfNjkyNDZCMURfQThDQl80RjQ5X0EyMjhfQzg3MzFGOTc4RDBEKQ==" autoIncrement="true"/>
+      <column name="ID" sqlType="BIGINT" precision="19" scale="0" nullable="false" jdbcType="-5" def="KE5FWFQgVkFMVUUgRk9SIFBVQkxJQy5TWVNURU1fU0VRVUVOQ0VfMTE1NDZFMjdfQTQ0Ql80RUY2X0FBM0FfMTZDOEUzRTlEREM3KQ==" autoIncrement="true"/>
       <column name="ITEMNAME" sqlType="VARCHAR" precision="2147483647" scale="0" nullable="true" jdbcType="12"/>
       <column name="ITEMQUANTITY" sqlType="VARCHAR" precision="2147483647" scale="0" nullable="true" jdbcType="12"/>
       <column name="USERID" sqlType="INTEGER" precision="10" scale="0" nullable="true" jdbcType="4"/>
       <primary-key name="CONSTRAINT_4" columns="ID"/>
     </table>
     <table name="USER" schema="PUBLIC" catalog="MAIN" type="TABLE">
-      <column name="ID" sqlType="BIGINT" precision="19" scale="0" nullable="false" jdbcType="-5" def="KE5FWFQgVkFMVUUgRk9SIFBVQkxJQy5TWVNURU1fU0VRVUVOQ0VfRjM5QkQxRUFfRDlDN180ODhFXzg2NkNfRTE3QzBDODhBNUE5KQ==" autoIncrement="true"/>
+      <column name="ID" sqlType="BIGINT" precision="19" scale="0" nullable="false" jdbcType="-5" def="KE5FWFQgVkFMVUUgRk9SIFBVQkxJQy5TWVNURU1fU0VRVUVOQ0VfREIxNjEwNEVfODJEMl80RUQwX0JDMkZfREQ2N0I2RTdFREI5KQ==" autoIncrement="true"/>
+      <column name="NAME" sqlType="VARCHAR" precision="2147483647" scale="0" nullable="true" jdbcType="12"/>
+      <column name="PASSWORD" sqlType="VARCHAR" precision="2147483647" scale="0" nullable="true" jdbcType="12"/>
+      <primary-key name="CONSTRAINT_2" columns="ID"/>
+    </table>
+  </data-source>
+  <data-source name="H2 - test@localhost" uuid="3eef05a6-7c24-4141-9211-36c3ddb7dde7">
+    <database-info product="H2" version="1.3.176 (2014-04-05)" jdbc-version="4.0" driver-name="H2 JDBC Driver" driver-version="1.3.176 (2014-04-05)">
+      <identifier-quote-string>&quot;</identifier-quote-string>
+    </database-info>
+    <case-sensitivity plain-identifiers="upper" quoted-identifiers="exact"/>
+    <schema name="PUBLIC" catalog="TEST"/>
+    <table name="GROCERYITEM" schema="PUBLIC" catalog="TEST" type="TABLE">
+      <column name="ID" sqlType="BIGINT" precision="19" scale="0" nullable="false" jdbcType="-5" def="KE5FWFQgVkFMVUUgRk9SIFBVQkxJQy5TWVNURU1fU0VRVUVOQ0VfQUQzQTFBRDZfNEREM180QjUwXzg3RkJfODQxRjkxREU4RjMwKQ==" autoIncrement="true"/>
+      <column name="ITEMNAME" sqlType="VARCHAR" precision="2147483647" scale="0" nullable="true" jdbcType="12"/>
+      <column name="ITEMQUANTITY" sqlType="VARCHAR" precision="2147483647" scale="0" nullable="true" jdbcType="12"/>
+      <column name="USERID" sqlType="INTEGER" precision="10" scale="0" nullable="true" jdbcType="4"/>
+      <primary-key name="CONSTRAINT_4" columns="ID"/>
+    </table>
+    <table name="USER" schema="PUBLIC" catalog="TEST" type="TABLE">
+      <column name="ID" sqlType="BIGINT" precision="19" scale="0" nullable="false" jdbcType="-5" def="KE5FWFQgVkFMVUUgRk9SIFBVQkxJQy5TWVNURU1fU0VRVUVOQ0VfMTIzOEMwRjFfMzI2QV80RkU3XzgyQzVfQjQzRDc3QTZFMURFKQ==" autoIncrement="true"/>
       <column name="NAME" sqlType="VARCHAR" precision="2147483647" scale="0" nullable="true" jdbcType="12"/>
       <column name="PASSWORD" sqlType="VARCHAR" precision="2147483647" scale="0" nullable="true" jdbcType="12"/>
       <primary-key name="CONSTRAINT_2" columns="ID"/>

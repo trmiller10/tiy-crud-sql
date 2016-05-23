@@ -14,6 +14,10 @@ public class User {
 
     // add a constructor that takes the name and password of the user and configures the object
 
+    public User(int id, String name, String password) {
+        this.name = name;
+        this.password = password;
+    }
     public User(String name, String password) {
         this.name = name;
         this.password = password;

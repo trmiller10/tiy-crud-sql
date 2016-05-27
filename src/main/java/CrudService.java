@@ -47,7 +47,7 @@ CREATE TABLE IF NOT EXISTS groceryItem
         Statement statement = connection.createStatement();
         statement.execute("CREATE TABLE IF NOT EXISTS user (id IDENTITY, name VARCHAR, password VARCHAR)");
         statement.execute("CREATE TABLE IF NOT EXISTS groceryItem (id IDENTITY, itemName VARCHAR, itemQuantity VARCHAR,  userId INT)");
-        statement.execute("INSERT INTO user VALUES (NULL, 'andrew', 'password')");
+        statement.execute("INSERT INTO user VALUES (NULL, 'a', 'p')");
         //statement.execute("INSERT INTO groceryItem VALUES (NULL, 'apples', 'quite a few', 1)");
     }
 
@@ -99,16 +99,19 @@ CREATE TABLE IF NOT EXISTS groceryItem
         //set strings into statement by getting itemName and itemQuantity
         preparedStatement.setString(1, itemName);
         preparedStatement.setString(2, itemQuantity);
-        preparedStatement.setInt(3, itemId);
+        preparedStatement.setInt(3, userId);
 
         preparedStatement.executeUpdate();
-/*
+
+
     //getGeneratedKeys() will return the generated id
         ResultSet resultSet = preparedStatement.getGeneratedKeys();
         resultSet.next(); //read the first line of results
     //set the generated id into groceryItem
+        GroceryItem groceryItem = new GroceryItem();
         groceryItem.setId(resultSet.getInt(1));
-        */
+        groceryItem.setItemName(itemName);
+        groceryItem.setItemQuantity(itemQuantity);
     }
 
 
@@ -121,11 +124,11 @@ CREATE TABLE IF NOT EXISTS groceryItem
         //but since I have GroceryItem with just a foreign key pointing to the Id of the User (userId), I just need to pull out the GroceryItem related to the Id of the GroceryItem that is queried
         //However, it is preferred when working with Java to make the User object an inherent property of the GroceryItem class because that is the point of object-oriented programming
         //to have the objects relate directly to each other instead of pointing to each other indirectly
-        PreparedStatement preparedStatement = connection.prepareStatement("SELECT * FROM groceryItem INNER JOIN user ON groceryItem.userId = user.id WHERE groceryItem.id = ?");
+        PreparedStatement preparedStatement = connection.prepareStatement("SELECT * FROM groceryItem WHERE groceryItem.id = ?");
 
         preparedStatement.setInt(1, selectId);
 
-        //resultSet is returned null because User is not even being joined here
+        //resultSet is returned null because User is not even being
         ResultSet resultSet = preparedStatement.executeQuery();
 
         GroceryItem groceryItem = null;
@@ -148,26 +151,24 @@ CREATE TABLE IF NOT EXISTS groceryItem
 
     //todo: create a selectEntries method
     //this will return an Arraylist of all objects I am tracking
-/*
     public ArrayList<GroceryItem> selectEntries(Connection connection, int id) throws SQLException {
         ArrayList<GroceryItem> userGroceryList = new ArrayList<>();
-        PreparedStatement preparedStatement = connection.prepareStatement("SELECT * FROM groceryItem INNER JOIN user ON user.id = GROCERYITEM.USERID WHERE user.id = ?");
+        PreparedStatement preparedStatement = connection.prepareStatement("SELECT * FROM groceryItem INNER JOIN user ON groceryItem.userId = user.id WHERE user.id = ?");
         preparedStatement.setInt(1, id);
         ResultSet resultSet = preparedStatement.executeQuery();
-        //  while(resultSet.next()){
+        while(resultSet.next()){
             int itemId = resultSet.getInt("id");
             String itemName = resultSet.getString("itemName");
             String itemQuantity = resultSet.getString("itemQuantity");
             int userId = resultSet.getInt("userId");
             GroceryItem groceryItem = new GroceryItem(itemId, itemName, itemQuantity, userId);
             userGroceryList.add(groceryItem);
-
-        //}
+        }
     return userGroceryList;
         //todo: this query should use an INNER JOIN between users and entries table
 
     }
-*/
+
 
 
     //todo: create a test for selectEntries

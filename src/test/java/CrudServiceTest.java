@@ -22,7 +22,7 @@ import static org.hamcrest.MatcherAssert.assertThat;
  */
 public class CrudServiceTest {
 
-
+/*
     //create a connection to be shared across the entire class
     Connection connection;
 
@@ -39,13 +39,13 @@ public class CrudServiceTest {
         //instantiate new service
         crudService = new CrudService(connection);
     }
-
+*/
     /**
      * Given: a new database
      * When: database is initialized
      * Then: we get two tables: User and GroceryItem
      */
-
+/*
     @Test
     public void testInitialization() throws SQLException {
         //arrange
@@ -69,7 +69,7 @@ public class CrudServiceTest {
 
         assertThat(tableNames, hasItems("USER", "GROCERYITEM"));
     }
-
+*/
     //todo: create a test for insertUser and selectUser
 
     /**
@@ -77,7 +77,7 @@ public class CrudServiceTest {
      * When: a new user is inserted
      * Then: then user id is set and user exists in database
      */
-
+/*
     @Test
     public void whenUserInsertedThenUserExists() throws SQLException, InterruptedException {
 
@@ -96,8 +96,10 @@ public class CrudServiceTest {
             Thread.sleep(100);
         }
     }
-
+*/
     /**
+     *
+     * DUPLICATE OF ABOVE TEST
      * Given: user database containing users
      * When: a user is selected by entering user's name
      * Then: the user object associated with that user name is returned
@@ -113,19 +115,19 @@ public class CrudServiceTest {
         //make sure that I'm actually testing the returned user and not the instance of
         //user that i created above in this test
         //act
-       User newUser = service.selectUser(user, user.name);
+       User newUser = service.selectUser(connection, "test");
 
         //assert
-        assertThat(newUser.getName(), is("testSelect"));
-
+        assertThat(newUser.getName(), is("test"));
     }
-*/
+    */
+
     /**
      * Given: an initialized grocery item database
      * When: a grocery item is inserted
      * Then: grocery item id is set and grocery item exists in database
      */
-
+/*
     @Test
     public void testGroceryItemDatabase() throws SQLException, InterruptedException {
 
@@ -146,20 +148,21 @@ public class CrudServiceTest {
         while(true) {
             Thread.sleep(100);
         }
-        */
-    }
 
+    }
+*/
     /**
      * Given: a grocery item database with grocery item entries
      * When: a grocery item is selected by entering its name
      * Then: the grocery item associated with that name is returned
-     *//*
+     */
+    /*
     @Test
     public void whenGroceryItemSelectedThenGroceryItemReturned() throws SQLException{
         //arrange
         CrudService service = new CrudService(connection);
-        GroceryItem groceryItem = new GroceryItem(1, "testItem", "quite a few");
-        service.insertEntry(groceryItem);
+        GroceryItem groceryItem = new GroceryItem(1, "testItem", "quite a few", 0);
+        service.insertEntry(groceryItem.getId(), groceryItem);
 
         //act
         service.selectEntry(groceryItem, 1);
@@ -167,11 +170,11 @@ public class CrudServiceTest {
         //assert
         assertThat(groceryItem.getItemName(), is("testItem"));
     }
-
+*/
 
 
     //todo: create a test for selectEntries
-    *//**
+    /**
      * Given: two databases with users and grocery items
      * When: selectEntries is run
      * Then: return an array list with all tracked objects

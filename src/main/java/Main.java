@@ -109,17 +109,17 @@ public class Main {
 
 
                     //   Get the user from the session
-                    request.session().attributes().contains("user");
+                    //request.session().attributes().contains("user");
                     Session session = request.session();
                     User user = session.attribute("user");
                     int id = user.getId();
 
 
                         //   user the getGroceryItems() method you created below to get a list of the user's own grocery items
-                    //ArrayList<GroceryItem> userArrayList = crudService.selectEntries(connection, id);
+                    ArrayList<GroceryItem> userArrayList = crudService.selectEntries(connection, id);
 
                     //   Put the user's grocery list into the model
-                    //hashMapModel.put("groceryList", userArrayList);
+                    hashMapModel.put("groceryList", userArrayList);
 
                         //   return a ModelAndView for the groceryList.mustache template
                     return new ModelAndView(hashMapModel, "groceryList.mustache");
@@ -159,9 +159,11 @@ public class Main {
                     //create a selectUser method
                     User checkUser = crudService.selectUser(connection, submittedName);
 
+
+
                     //return any users with the same username as the entered user
                     //if the entered user does not match any users in the database, then redirect back to /login with an error message
-                    if(checkUser == null) {
+                    /*if(checkUser == null) {
                         response.redirect("/");
                     } else if(checkUser.equals(enteredUser) && !submittedPassword.equals(checkUser.password)) {
                         response.redirect("/");
@@ -169,7 +171,18 @@ public class Main {
                         request.session().attribute("user", enteredUser);
                         response.redirect("/");
                         halt();
+                    }*/
+
+
+                    if(enteredUser != null && (submittedPassword.equals(enteredUser.password))) {
+                        request.session().attribute("user", enteredUser);
                     }
+
+                    response.redirect("/");
+
+                    halt();
+
+
                     //if the entered user does match a user that exists in the database, then check the entered password against the saved password
                     //if the entered password does not match the saved password, then redirect back to /login with an error message
                     //if the entered password does match the saved password, then enter the user into the session and redirect to /groceryList
@@ -193,6 +206,8 @@ public class Main {
                     }
                     */
                     //   return null
+
+
                     return null;
 
 
@@ -215,14 +230,16 @@ public class Main {
                 }
         );
 
-/*
+
         Spark.post(
                 "/add-grocery-item",
                 (request, response) -> {
 
-                    GroceryItem groceryItem = new GroceryItem(request.queryParams("name"), request.queryParams("quantity"));
+                    GroceryItem groceryItem = new GroceryItem();
 
-                    crudService.insertEntry(groceryItem, request.session().attribute("user"));
+                    User currentUser = request.session().attribute("user");
+
+                    crudService.insertEntry(connection, groceryItem.id, groceryItem.getItemName(), groceryItem.getItemQuantity(), currentUser.getId());
 
                     response.redirect("/");
 
@@ -232,7 +249,7 @@ public class Main {
                 }
 
         );
-*/
+
 
 
                     /* OLD CODE

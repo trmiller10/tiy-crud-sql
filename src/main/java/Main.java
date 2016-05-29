@@ -239,7 +239,7 @@ public class Main {
 
                     User currentUser = request.session().attribute("user");
 
-                    crudService.insertEntry(connection, groceryItem.id, groceryItem.getItemName(), groceryItem.getItemQuantity(), currentUser.getId());
+                    crudService.insertEntry(connection, new GroceryItem(groceryItem.id, request.queryParams("itemName"), request.queryParams("itemQuantity"), currentUser.getId());
 
                     response.redirect("/");
 

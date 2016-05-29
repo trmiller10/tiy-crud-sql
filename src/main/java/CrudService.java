@@ -92,14 +92,14 @@ CREATE TABLE IF NOT EXISTS groceryItem
 
     //todo: create insertEntry method
     //this will create a new record for thing I'm tracking
-    public void insertEntry(Connection connection, int itemId, String itemName, String itemQuantity, int userId) throws SQLException {
+    public void insertEntry(Connection connection, GroceryItem groceryItem) throws SQLException {
         //create prepared statement
         PreparedStatement preparedStatement = connection.prepareStatement("INSERT INTO groceryItem VALUES (NULL, ?, ?, ?)");
 
         //set strings into statement by getting itemName and itemQuantity
-        preparedStatement.setString(1, itemName);
-        preparedStatement.setString(2, itemQuantity);
-        preparedStatement.setInt(3, userId);
+        preparedStatement.setString(1, groceryItem.itemName);
+        preparedStatement.setString(2, groceryItem.itemQuantity);
+        preparedStatement.setInt(3, groceryItem.userId);
 
         preparedStatement.executeUpdate();
 
@@ -110,8 +110,8 @@ CREATE TABLE IF NOT EXISTS groceryItem
     //set the generated id into groceryItem
         GroceryItem groceryItem = new GroceryItem();
         groceryItem.setId(resultSet.getInt(1));
-        groceryItem.setItemName(itemName);
-        groceryItem.setItemQuantity(itemQuantity);
+        groceryItem.setItemName(groceryItem.itemName);
+        groceryItem.setItemQuantity(groceryItem.itemQuantity);
     }
 
 

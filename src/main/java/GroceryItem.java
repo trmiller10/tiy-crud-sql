@@ -4,7 +4,7 @@
  */
 public class GroceryItem {
     // todo: create an id, default it to 1
-    int id = 1;
+    int id;
 
     //User createdByUser;
 

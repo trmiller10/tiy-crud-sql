@@ -152,7 +152,7 @@ public class Main {
                     String submittedPassword = request.queryParams("password");
 
                     //  create a new User instance with the submitted data
-                    User enteredUser = new User(submittedName, submittedPassword);
+                    //User enteredUser = new User(submittedName, submittedPassword);
 
                     //  check the entered user's data against the current database of users
                     //create an H2 database for User
@@ -174,8 +174,8 @@ public class Main {
                     }*/
 
 
-                    if(enteredUser != null && (submittedPassword.equals(enteredUser.password))) {
-                        request.session().attribute("user", enteredUser);
+                    if(checkUser != null && (submittedPassword.equals(checkUser.password))) {
+                        request.session().attribute("user", checkUser);
                     }
 
                     response.redirect("/");
@@ -235,11 +235,15 @@ public class Main {
                 "/add-grocery-item",
                 (request, response) -> {
 
-                    GroceryItem groceryItem = new GroceryItem();
-
                     User currentUser = request.session().attribute("user");
 
-                    crudService.insertEntry(connection, new GroceryItem(groceryItem.id, request.queryParams("itemName"), request.queryParams("itemQuantity"), currentUser.getId());
+                    GroceryItem newGroceryItem = new GroceryItem();
+
+                    newGroceryItem.setItemName(request.queryParams("itemName"));
+                    newGroceryItem.setItemQuantity(request.queryParams("itemQuantity"));
+                    newGroceryItem.setUserId(currentUser.getId());
+
+                    crudService.insertEntry(connection, newGroceryItem);
 
                     response.redirect("/");
 
@@ -248,6 +252,34 @@ public class Main {
                     return null;
                 }
 
+        );
+        // note that this is a get method. There is also a past method with the same endpoint
+
+        Spark.get(
+                "/edit-grocery-item",
+                (request, response) -> {
+                    //   create a map to hold your model values
+                    HashMap m = new HashMap();
+
+                    //   get the id of the item being deleted from the query params and convert it to an integer
+                    String id = request.queryParams("id");
+                    int editId = Integer.valueOf(id);
+
+                    //   Get the user from the session
+                    User user = request.session().attribute("user");
+
+                    //   Get the user's grocery list using the method below
+                    GroceryItem editGroceryItem = crudService.selectEntry(connection, editId);
+
+                    //   use the getItem() method you create below to get the correct item from the grocery list
+                    //   add the item into your m hashmap. Be sure to name the key "item".
+                    //m.put("item", getItem(getGroceryItems(user), editId));
+                    m.put("item", editGroceryItem);
+
+                    //   return a new model and view object for the grocery item edit form, groceryItemForm.mustache
+                    return new ModelAndView(m, "groceryItemForm.mustache");
+                },
+                new MustacheTemplateEngine()
         );
 
 
@@ -302,35 +334,8 @@ public class Main {
         );
 
 
-/*
+*/
 
-        // note that this is a get method. There is also a past method with the same endpoint
-
-        Spark.get(
-                "/edit-grocery-item",
-                (request, response) -> {
-                    //   create a map to hold your model values
-                    HashMap m = new HashMap();
-
-                    //   get the id of the item being deleted from the query params and convert it to an integer
-                    String id = request.queryParams("id");
-                    int editId = Integer.valueOf(id);
-
-                    //   Get the user from the session
-                    User user = request.session().attribute("user");
-
-                    //   Get the user's grocery list using the method below
-                    getGroceryItems(user);
-
-                    //   use the getItem() method you create below to get the correct item from the grocery list
-                    //   add the item into your m hashmap. Be sure to name the key "item".
-                    m.put("item", getItem(getGroceryItems(user), editId));
-
-                    //   return a new model and view object for the grocery item edit form, groceryItemForm.mustache
-                    return new ModelAndView(m, "groceryItemForm.mustache");
-                },
-                new MustacheTemplateEngine()
-        );
 
 
 
@@ -341,24 +346,30 @@ public class Main {
                 (request, response) -> {
                     //   get the id of the item being deleted from the query params and convert it to an integer
                     String id = request.queryParams("id");
-
                     int editId = Integer.valueOf(id);
 
                     //   Get the user from the session
                     User user = request.session().attribute("user");
 
-                    //   Get the user's grocery list
-                    getGroceryItems(user);
+                    //   Get the selected grocery item using the connection and the id of item
+                    GroceryItem editGroceryItem = crudService.selectEntry(connection, editId);
 
                     //   use getItem() to get the item being edited from the user's grocery list
-                    GroceryItem groceryItem = new GroceryItem(sequence, request.queryParams("name"), request.queryParams("quantity"));
-                    groceryItem = getItem(getGroceryItems(user), editId);
+                    //GroceryItem groceryItem = new GroceryItem(sequence, request.queryParams("name"), request.queryParams("quantity"));
+                    //groceryItem = getItem(getGroceryItems(user), editId);
+
+
+                    editGroceryItem.setItemName(request.queryParams("itemName"));
+                    editGroceryItem.setItemQuantity(request.queryParams("itemQuantity"));
+                    editGroceryItem.setUserId(user.getId());
+
+                    crudService.updateEntry(connection, editId, editGroceryItem);
 
                     //   update the item's name
-                    groceryItem.setItemName(request.queryParams("name"));
+                    //groceryItem.setItemName(request.queryParams("name"));
 
                     //   update the item's quantity
-                    groceryItem.setItemQuantity(request.queryParams("quantity"));
+                    //groceryItem.setItemQuantity(request.queryParams("quantity"));
 
                     // note: (no code to write here) we don't need to add this item into the grocery list because it's already there.
 
@@ -372,6 +383,7 @@ public class Main {
                     return null;
                 }
         );
+        /*
 
         Spark.get(
                 "/delete-grocery-item",

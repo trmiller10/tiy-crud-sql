@@ -16,10 +16,10 @@
 
 <form action="/add-grocery-item" method="post">
     <p>
-        <input type="text" name="name" value="" placeholder="Grocery Item">
+        <input type="text" name="itemName" value="" placeholder="Grocery Item">
     </p>
     <p>
-        <input type="text" name="quantity" value="" placeholder="Quantity of Item">
+        <input type="text" name="itemQuantity" value="" placeholder="Quantity of Item">
     </p>
     <button type="submit">Add</button>
 </form>
@@ -34,7 +34,6 @@
         No groceries!
     {{/groceryList}}
     {{#groceryList}}
-        Something should be here!
         <tr>
             <td>{{itemName}}</td>
             <td>{{itemQuantity}}</td>

@@ -47,7 +47,7 @@ CREATE TABLE IF NOT EXISTS groceryItem
         Statement statement = connection.createStatement();
         statement.execute("CREATE TABLE IF NOT EXISTS user (id IDENTITY, name VARCHAR, password VARCHAR)");
         statement.execute("CREATE TABLE IF NOT EXISTS groceryItem (id IDENTITY, itemName VARCHAR, itemQuantity VARCHAR,  userId INT)");
-        statement.execute("INSERT INTO user VALUES (NULL, 'a', 'p')");
+        //statement.execute("INSERT INTO user VALUES (NULL, 'a', 'p')");
         //statement.execute("INSERT INTO groceryItem VALUES (NULL, 'apples', 'quite a few', 1)");
     }
 
@@ -81,10 +81,12 @@ CREATE TABLE IF NOT EXISTS groceryItem
 
         ResultSet resultSet = preparedStatement.executeQuery();
 
+
             if (resultSet.next()) {
                 int id = resultSet.getInt("id");
                 String password = resultSet.getString("password");
-                return new User(id, name, password);
+                User returnedUser = new User(id, name, password);
+                return returnedUser;
             }
         return null;
     }
@@ -108,7 +110,7 @@ CREATE TABLE IF NOT EXISTS groceryItem
         ResultSet resultSet = preparedStatement.getGeneratedKeys();
         resultSet.next(); //read the first line of results
     //set the generated id into groceryItem
-        GroceryItem groceryItem = new GroceryItem();
+        //GroceryItem groceryItem = new GroceryItem();
         groceryItem.setId(resultSet.getInt(1));
         groceryItem.setItemName(groceryItem.itemName);
         groceryItem.setItemQuantity(groceryItem.itemQuantity);
@@ -151,7 +153,9 @@ CREATE TABLE IF NOT EXISTS groceryItem
 
     //todo: create a selectEntries method
     //this will return an Arraylist of all objects I am tracking
+    /*
     public ArrayList<GroceryItem> selectEntries(Connection connection, int id) throws SQLException {
+
         ArrayList<GroceryItem> userGroceryList = new ArrayList<>();
         PreparedStatement preparedStatement = connection.prepareStatement("SELECT * FROM groceryItem INNER JOIN user ON groceryItem.userId = user.id WHERE user.id = ?");
         preparedStatement.setInt(1, id);
@@ -163,6 +167,22 @@ CREATE TABLE IF NOT EXISTS groceryItem
             int userId = resultSet.getInt("userId");
             GroceryItem groceryItem = new GroceryItem(itemId, itemName, itemQuantity, userId);
             userGroceryList.add(groceryItem);
+            */
+        public ArrayList<GroceryItem> selectEntries(Connection connection, int userId) throws SQLException {
+            PreparedStatement preparedStatement = connection.prepareStatement("SELECT * FROM GROCERYITEM INNER JOIN USER ON " +
+                    "GROCERYITEM.USERID = USER.ID WHERE User.id = ?");
+            preparedStatement.setInt(1, userId);
+            ArrayList<GroceryItem> userGroceryList = new ArrayList<>();
+            ResultSet resultSet = preparedStatement.executeQuery();
+
+            while (resultSet.next()){
+                GroceryItem groceryItem = new GroceryItem();
+                groceryItem.setId(resultSet.getInt(1));
+                groceryItem.setItemName(resultSet.getString(2));
+                groceryItem.setItemQuantity(resultSet.getString(3));
+                groceryItem.setUserId(resultSet.getInt(4));
+                userGroceryList.add(groceryItem);
+
         }
     return userGroceryList;
         //todo: this query should use an INNER JOIN between users and entries table
@@ -175,6 +195,18 @@ CREATE TABLE IF NOT EXISTS groceryItem
 
     //todo: create updateEntry method
     //this will update all the values for a given ID
+    public void updateEntry(Connection connection, int editId, GroceryItem editGroceryItem) throws SQLException {
+        //create a prepared statement to update the entries
+        PreparedStatement preparedStatement = connection.prepareStatement("UPDATE GROCERYITEM SET ITEMNAME = ?, ITEMQUANTITY = ? WHERE ID = ?");
+        preparedStatement.setString(1, editGroceryItem.getItemName());
+        preparedStatement.setString(2, editGroceryItem.getItemQuantity());
+        preparedStatement.setInt(3, editId);
+
+        preparedStatement.executeUpdate();
+
+        //update the entries based on the editId and the new groceryItem data
+
+    }
 
     //todo: create deleteEntry method
     //this will delete an entry with the given ID

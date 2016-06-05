@@ -216,4 +216,29 @@ public class CrudServiceTest {
 
 
     //todo: create a test for updateEntry and deleteEntry
+/**
+ * Given: SQL database with user, grocery items with ids
+ * When: a grocery item selected to be updated via a specific id
+ * Then: grocery item row in database is updated
+ */
 
+/*
+public void testUpdateEntry() throws SQLException{
+//Arrange
+CrudService testService = new CrudService();
+//initialize a new database
+//create a test user and insert into user table
+//create a test item and insert into groceryItem table
+//selectEntry that test item
+
+//Act
+testService.updateEntry(
+
+//Assert
+assert that item ID is the same id as the original item
+assert that updated item name and quantity match the new name and quantity
+
+}
+
+
+ */

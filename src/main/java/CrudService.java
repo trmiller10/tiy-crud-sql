@@ -210,6 +210,12 @@ CREATE TABLE IF NOT EXISTS groceryItem
 
     //todo: create deleteEntry method
     //this will delete an entry with the given ID
+public void deleteEntry(Connection connection, int deleteId) throws SQLException {
+    PreparedStatement preparedStatement = connection.prepareStatement("DELETE FROM GROCERYITEM WHERE ID = ?");
+    preparedStatement.setInt(1, deleteId);
+
+    preparedStatement.executeUpdate();
+}
 
     //todo: create a test for updateEntry and deleteEntry
 

@@ -282,7 +282,49 @@ public class Main {
                 new MustacheTemplateEngine()
         );
 
+        // note that this is a post method. There is also a get method with the same endpoint
+        Spark.post(
+                "/edit-grocery-item",
+                (request, response) -> {
+                    //   get the id of the item being deleted from the query params and convert it to an integer
+                    String id = request.queryParams("id");
+                    int editId = Integer.valueOf(id);
 
+                    //   Get the user from the session
+                    User user = request.session().attribute("user");
+
+                    //   Get the selected grocery item using the connection and the id of item
+                    GroceryItem editGroceryItem = crudService.selectEntry(connection, editId);
+
+                    //   use getItem() to get the item being edited from the user's grocery list
+                    //GroceryItem groceryItem = new GroceryItem(sequence, request.queryParams("name"), request.queryParams("quantity"));
+                    //groceryItem = getItem(getGroceryItems(user), editId);
+
+
+                    editGroceryItem.setItemName(request.queryParams("itemName"));
+                    editGroceryItem.setItemQuantity(request.queryParams("itemQuantity"));
+                    editGroceryItem.setUserId(user.getId());
+
+                    crudService.updateEntry(connection, editId, editGroceryItem);
+
+                    //   update the item's name
+                    //groceryItem.setItemName(request.queryParams("name"));
+
+                    //   update the item's quantity
+                    //groceryItem.setItemQuantity(request.queryParams("quantity"));
+
+                    // note: (no code to write here) we don't need to add this item into the grocery list because it's already there.
+
+                    //   redirect to the webroot
+                    response.redirect("/");
+
+                    //   halt this request
+                    halt();
+
+                    //   return null
+                    return null;
+                }
+        );
 
                     /* OLD CODE
                     int id = 0;
@@ -340,50 +382,8 @@ public class Main {
 
 
 
-        // note that this is a post method. There is also a get method with the same endpoint
-        Spark.post(
-                "/edit-grocery-item",
-                (request, response) -> {
-                    //   get the id of the item being deleted from the query params and convert it to an integer
-                    String id = request.queryParams("id");
-                    int editId = Integer.valueOf(id);
-
-                    //   Get the user from the session
-                    User user = request.session().attribute("user");
-
-                    //   Get the selected grocery item using the connection and the id of item
-                    GroceryItem editGroceryItem = crudService.selectEntry(connection, editId);
-
-                    //   use getItem() to get the item being edited from the user's grocery list
-                    //GroceryItem groceryItem = new GroceryItem(sequence, request.queryParams("name"), request.queryParams("quantity"));
-                    //groceryItem = getItem(getGroceryItems(user), editId);
 
 
-                    editGroceryItem.setItemName(request.queryParams("itemName"));
-                    editGroceryItem.setItemQuantity(request.queryParams("itemQuantity"));
-                    editGroceryItem.setUserId(user.getId());
-
-                    crudService.updateEntry(connection, editId, editGroceryItem);
-
-                    //   update the item's name
-                    //groceryItem.setItemName(request.queryParams("name"));
-
-                    //   update the item's quantity
-                    //groceryItem.setItemQuantity(request.queryParams("quantity"));
-
-                    // note: (no code to write here) we don't need to add this item into the grocery list because it's already there.
-
-                    //   redirect to the webroot
-                    response.redirect("/");
-
-                    //   halt this request
-                    halt();
-
-                    //   return null
-                    return null;
-                }
-        );
-        /*
 
         Spark.get(
                 "/delete-grocery-item",
@@ -396,15 +396,15 @@ public class Main {
                     User user = request.session().attribute("user");
 
                     //   Get the user's grocery list
-                    ArrayList<GroceryItem> groceryList = getGroceryItems(user);
+                    //ArrayList<GroceryItem> groceryList = getGroceryItems(user);
 
                     //   use getItem() to get the item being edited from the user's grocery list
-                    GroceryItem deleteGroceryItem = new GroceryItem();
-                    deleteGroceryItem = getItem(groceryList, deleteId);
+                    //GroceryItem deleteGroceryItem = new GroceryItem();
+                    //deleteGroceryItem = crudService.selectEntry(connection, deleteId);
 
                     //   delete this item from the array list
                     //groceryList.remove(deleteGroceryItem);
-                    crudService.
+                    crudService.deleteEntry(connection, deleteId);
 
                     //   redirect to the webroot
                     response.redirect("/");
@@ -419,7 +419,7 @@ public class Main {
         );
 
 
-
+        /*
 
 
     private static ArrayList<GroceryItem> getGroceryItems(User user) {

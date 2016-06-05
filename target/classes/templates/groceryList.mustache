@@ -25,16 +25,18 @@
 </form>
 
 <table>
+    {{^groceryList}}
+        No groceries!
+    {{/groceryList}}
+    {{#groceryList}}
     <tr>
         <th>Item</th>
         <th>Quantity</th>
         <th>&nbsp;</th>
     </tr>
-    {{^groceryList}}
-        No groceries!
     {{/groceryList}}
     {{#groceryList}}
-       Something should be here!
+
         <tr>
             <td>{{itemName}}</td>
             <td>{{itemQuantity}}</td>

@@ -4,19 +4,12 @@
     <list default="true" id="9a2c58e6-eff2-4da5-b43f-c5dddf3ff8e2" name="Default" comment="">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/dataSources.ids" afterPath="$PROJECT_DIR$/.idea/dataSources.ids" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/data/main.h2.db" afterPath="$PROJECT_DIR$/data/main.h2.db" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/data/test.h2.db" afterPath="$PROJECT_DIR$/data/test.h2.db" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/target/classes/CrudService.class" afterPath="$PROJECT_DIR$/target/classes/CrudService.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/target/classes/GroceryItem.class" afterPath="$PROJECT_DIR$/target/classes/GroceryItem.class" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/target/classes/Main.class" afterPath="$PROJECT_DIR$/target/classes/Main.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/target/classes/User.class" afterPath="$PROJECT_DIR$/target/classes/User.class" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/dataSources.xml" afterPath="$PROJECT_DIR$/.idea/dataSources.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/CrudService.java" afterPath="$PROJECT_DIR$/src/main/java/CrudService.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/Main.java" afterPath="$PROJECT_DIR$/src/main/java/Main.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/User.java" afterPath="$PROJECT_DIR$/src/main/java/User.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/resources/templates/groceryItemForm.mustache" afterPath="$PROJECT_DIR$/src/main/resources/templates/groceryItemForm.mustache" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/resources/templates/groceryList.mustache" afterPath="$PROJECT_DIR$/src/main/resources/templates/groceryList.mustache" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/test/java/CrudServiceTest.java" afterPath="$PROJECT_DIR$/src/test/java/CrudServiceTest.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/target/classes/templates/groceryList.mustache" afterPath="$PROJECT_DIR$/target/classes/templates/groceryList.mustache" />
     </list>
     <ignored path="crud.iws" />
@@ -61,20 +54,6 @@
         <option name="myItemType" value="com.intellij.database.view.DbNodeDescriptor" />
       </PATH_ELEMENT>
     </PATH>
-    <PATH>
-      <PATH_ELEMENT>
-        <option name="myItemId" />
-        <option name="myItemType" value="com.intellij.database.view.DatabaseStructure$Root" />
-      </PATH_ELEMENT>
-      <PATH_ELEMENT>
-        <option name="myItemId" value="H2 - main@localhost" />
-        <option name="myItemType" value="com.intellij.database.view.DbNodeDescriptor" />
-      </PATH_ELEMENT>
-      <PATH_ELEMENT>
-        <option name="myItemId" value="GROCERYITEM" />
-        <option name="myItemType" value="com.intellij.database.view.DbNodeDescriptor" />
-      </PATH_ELEMENT>
-    </PATH>
   </component>
   <component name="ExecutionTargetManager" SELECTED_TARGET="default_target" />
   <component name="FavoritesManager">
@@ -82,11 +61,11 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="groceryList.mustache" pinned="false" current-in-tab="true">
+      <file leaf-file-name="groceryList.mustache" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/resources/templates/groceryList.mustache">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="288">
-              <caret line="35" column="20" selection-start-line="35" selection-start-column="20" selection-end-line="35" selection-end-column="20" />
+            <state relative-caret-position="120">
+              <caret line="27" column="8" selection-start-line="27" selection-start-column="8" selection-end-line="27" selection-end-column="8" />
               <folding />
             </state>
           </provider>
@@ -95,26 +74,27 @@
       <file leaf-file-name="CrudService.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/java/CrudService.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="120">
-              <caret line="204" column="42" selection-start-line="204" selection-start-column="42" selection-end-line="204" selection-end-column="42" />
+            <state relative-caret-position="2835">
+              <caret line="216" column="38" selection-start-line="216" selection-start-column="38" selection-end-line="216" selection-end-column="38" />
               <folding>
-                <marker date="1465163250000" expanded="true" signature="993:1070" ph="CREATE TABLE... IF" />
-                <marker date="1465163250000" expanded="true" signature="1101:1206" ph="CREATE TABLE... IF" />
-                <marker date="1465163250000" expanded="true" signature="1239:1279" ph="INSERT INTO user... " />
-                <marker date="1465163250000" expanded="true" signature="1312:1377" ph="INSERT INTO groceryItem... " />
-                <marker date="1465163250000" expanded="true" signature="1693:1729" ph="INSERT INTO user... " />
-                <marker date="1465163250000" expanded="true" signature="2511:2543" ph="SELECT * FRO... user" />
-                <marker date="1465163250000" expanded="true" signature="3265:3311" ph="INSERT INTO user... " />
-                <marker date="1465163250000" expanded="true" signature="5115:5165" ph="SELECT * FRO... groceryItem" />
-                <marker date="1465163250000" expanded="true" signature="6273:6358" ph="SELECT * FRO... groceryItem" />
-                <marker date="1465163250000" expanded="true" signature="6273:6360" ph="SELECT * FRO... groceryItem" />
-                <marker date="1465163250000" expanded="true" signature="6273:6364" ph="SELECT * FRO... groceryItem" />
-                <marker date="1465163250000" expanded="true" signature="7086:7202" ph="SELECT * FRO... GROCERYITEM" />
-                <marker date="1465163250000" expanded="true" signature="8313:8331" ph="UPDATE GROCE... " />
-                <marker date="1465163250000" expanded="true" signature="8313:8335" ph="UPDATE GROCE... " />
-                <marker date="1465163250000" expanded="true" signature="8313:8349" ph="UPDATE GROCE... " />
-                <marker date="1465163250000" expanded="true" signature="8313:8366" ph="UPDATE GROCE... " />
-                <marker date="1465163250000" expanded="true" signature="8313:8379" ph="UPDATE GROCE... " />
+                <marker date="1465164089000" expanded="true" signature="993:1070" ph="CREATE TABLE... IF" />
+                <marker date="1465164089000" expanded="true" signature="1101:1206" ph="CREATE TABLE... IF" />
+                <marker date="1465164089000" expanded="true" signature="1239:1279" ph="INSERT INTO user... " />
+                <marker date="1465164089000" expanded="true" signature="1312:1377" ph="INSERT INTO groceryItem... " />
+                <marker date="1465164089000" expanded="true" signature="1693:1729" ph="INSERT INTO user... " />
+                <marker date="1465164089000" expanded="true" signature="2511:2543" ph="SELECT * FRO... user" />
+                <marker date="1465164089000" expanded="true" signature="3265:3311" ph="INSERT INTO user... " />
+                <marker date="1465164089000" expanded="true" signature="5115:5165" ph="SELECT * FRO... groceryItem" />
+                <marker date="1465164089000" expanded="true" signature="6273:6358" ph="SELECT * FRO... groceryItem" />
+                <marker date="1465164089000" expanded="true" signature="6273:6360" ph="SELECT * FRO... groceryItem" />
+                <marker date="1465164089000" expanded="true" signature="6273:6364" ph="SELECT * FRO... groceryItem" />
+                <marker date="1465164089000" expanded="true" signature="7086:7202" ph="SELECT * FRO... GROCERYITEM" />
+                <marker date="1465164089000" expanded="true" signature="8313:8331" ph="UPDATE GROCE... " />
+                <marker date="1465164089000" expanded="true" signature="8313:8335" ph="UPDATE GROCE... " />
+                <marker date="1465164089000" expanded="true" signature="8313:8349" ph="UPDATE GROCE... " />
+                <marker date="1465164089000" expanded="true" signature="8313:8366" ph="UPDATE GROCE... " />
+                <marker date="1465164089000" expanded="true" signature="8313:8379" ph="UPDATE GROCE... " />
+                <marker date="1465164089000" expanded="true" signature="8947:8983" ph="DELETE FROM " />
               </folding>
             </state>
           </provider>
@@ -133,8 +113,8 @@
       <file leaf-file-name="Main.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/java/Main.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="75">
-              <caret line="360" column="0" selection-start-line="360" selection-start-column="0" selection-end-line="360" selection-end-column="0" />
+            <state relative-caret-position="217">
+              <caret line="399" column="0" selection-start-line="399" selection-start-column="0" selection-end-line="399" selection-end-column="0" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -145,15 +125,15 @@
       <file leaf-file-name="groceryItemForm.mustache" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/resources/templates/groceryItemForm.mustache">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="186">
+            <state relative-caret-position="225">
               <caret line="15" column="38" selection-start-line="15" selection-start-column="38" selection-end-line="15" selection-end-column="38" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="MAIN.PUBLIC.GROCERYITEM" pinned="false" current-in-tab="false">
-        <entry file="dbDummy://dbtable:/4f790b87/aef73e6a-3f8b-4f23-a427-fc30400fdbe4/MAIN.PUBLIC.GROCERYITEM">
+      <file leaf-file-name="MAIN.PUBLIC.USER" pinned="false" current-in-tab="true">
+        <entry file="dbDummy://dbtable:/4f790b87/aef73e6a-3f8b-4f23-a427-fc30400fdbe4/MAIN.PUBLIC.USER">
           <provider selected="true" editor-type-id="com.intellij.database.editor.DatabaseTableFileEditorProvider">
             <state>
               <filtering enabled="true" />
@@ -248,11 +228,11 @@
         <option value="$PROJECT_DIR$/src/main/java/GroceryItem.java" />
         <option value="$PROJECT_DIR$/src/main/java/User.java" />
         <option value="$PROJECT_DIR$/src/test/java/CrudServiceTest.java" />
-        <option value="$APPLICATION_CONFIG_DIR$/consoles/db/aef73e6a-3f8b-4f23-a427-fc30400fdbe4/console.sql" />
-        <option value="$PROJECT_DIR$/src/main/java/CrudService.java" />
         <option value="$PROJECT_DIR$/src/main/resources/templates/groceryItemForm.mustache" />
+        <option value="$PROJECT_DIR$/src/main/java/CrudService.java" />
         <option value="$PROJECT_DIR$/src/main/java/Main.java" />
         <option value="$PROJECT_DIR$/src/main/resources/templates/groceryList.mustache" />
+        <option value="$APPLICATION_CONFIG_DIR$/consoles/db/aef73e6a-3f8b-4f23-a427-fc30400fdbe4/console.sql" />
       </list>
     </option>
   </component>
@@ -895,7 +875,7 @@
       <workItem from="1464584393054" duration="10206000" />
       <workItem from="1464723494474" duration="2363000" />
       <workItem from="1464787095561" duration="71000" />
-      <workItem from="1465080247308" duration="4689000" />
+      <workItem from="1465080247308" duration="5790000" />
     </task>
     <servers />
   </component>
@@ -932,7 +912,7 @@
     </history-entry>
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="153818000" />
+    <option name="totallyTimeSpent" value="154919000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="23" width="1151" height="702" extended-state="0" />
@@ -947,7 +927,7 @@
       <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="REPL" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="-1" side_tool="true" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33934426" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.33934426" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Leiningen" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
       <window_info id="Capture Tool" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
@@ -1021,12 +1001,6 @@
           <line>451</line>
           <properties />
           <option name="timeStamp" value="25" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/main/java/Main.java</url>
-          <line>347</line>
-          <properties />
-          <option name="timeStamp" value="26" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/main/java/Main.java</url>
@@ -1605,18 +1579,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="dbDummy://dbtable:/4f790b87/aef73e6a-3f8b-4f23-a427-fc30400fdbe4/MAIN.PUBLIC.USER">
-      <provider selected="true" editor-type-id="com.intellij.database.editor.DatabaseTableFileEditorProvider">
-        <state>
-          <filtering enabled="true" />
-        </state>
-      </provider>
-      <provider editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
     <entry file="jar://$MAVEN_REPOSITORY$/com/sparkjava/spark-core/2.3/spark-core-2.3-sources.jar!/spark/TemplateViewRouteImpl.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="124">
@@ -1695,36 +1657,12 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$APPLICATION_CONFIG_DIR$/consoles/db/aef73e6a-3f8b-4f23-a427-fc30400fdbe4/console.sql">
+    <entry file="file://$PROJECT_DIR$/src/main/java/Main.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="26" selection-start-line="0" selection-start-column="26" selection-end-line="0" selection-end-column="26" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/CrudService.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="120">
-          <caret line="204" column="42" selection-start-line="204" selection-start-column="42" selection-end-line="204" selection-end-column="42" />
+        <state relative-caret-position="217">
+          <caret line="399" column="0" selection-start-line="399" selection-start-column="0" selection-end-line="399" selection-end-column="0" />
           <folding>
-            <marker date="1465163250000" expanded="true" signature="993:1070" ph="CREATE TABLE... IF" />
-            <marker date="1465163250000" expanded="true" signature="1101:1206" ph="CREATE TABLE... IF" />
-            <marker date="1465163250000" expanded="true" signature="1239:1279" ph="INSERT INTO user... " />
-            <marker date="1465163250000" expanded="true" signature="1312:1377" ph="INSERT INTO groceryItem... " />
-            <marker date="1465163250000" expanded="true" signature="1693:1729" ph="INSERT INTO user... " />
-            <marker date="1465163250000" expanded="true" signature="2511:2543" ph="SELECT * FRO... user" />
-            <marker date="1465163250000" expanded="true" signature="3265:3311" ph="INSERT INTO user... " />
-            <marker date="1465163250000" expanded="true" signature="5115:5165" ph="SELECT * FRO... groceryItem" />
-            <marker date="1465163250000" expanded="true" signature="6273:6358" ph="SELECT * FRO... groceryItem" />
-            <marker date="1465163250000" expanded="true" signature="6273:6360" ph="SELECT * FRO... groceryItem" />
-            <marker date="1465163250000" expanded="true" signature="6273:6364" ph="SELECT * FRO... groceryItem" />
-            <marker date="1465163250000" expanded="true" signature="7086:7202" ph="SELECT * FRO... GROCERYITEM" />
-            <marker date="1465163250000" expanded="true" signature="8313:8331" ph="UPDATE GROCE... " />
-            <marker date="1465163250000" expanded="true" signature="8313:8335" ph="UPDATE GROCE... " />
-            <marker date="1465163250000" expanded="true" signature="8313:8349" ph="UPDATE GROCE... " />
-            <marker date="1465163250000" expanded="true" signature="8313:8366" ph="UPDATE GROCE... " />
-            <marker date="1465163250000" expanded="true" signature="8313:8379" ph="UPDATE GROCE... " />
+            <element signature="imports" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -1744,26 +1682,64 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/resources/templates/groceryItemForm.mustache">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="186">
+        <state relative-caret-position="225">
           <caret line="15" column="38" selection-start-line="15" selection-start-column="38" selection-end-line="15" selection-end-column="38" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/Main.java">
+    <entry file="file://$PROJECT_DIR$/src/main/resources/templates/groceryList.mustache">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="75">
-          <caret line="360" column="0" selection-start-line="360" selection-start-column="0" selection-end-line="360" selection-end-column="0" />
+        <state relative-caret-position="120">
+          <caret line="27" column="8" selection-start-line="27" selection-start-column="8" selection-end-line="27" selection-end-column="8" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/CrudService.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="2835">
+          <caret line="216" column="38" selection-start-line="216" selection-start-column="38" selection-end-line="216" selection-end-column="38" />
           <folding>
-            <element signature="imports" expanded="true" />
+            <marker date="1465164089000" expanded="true" signature="993:1070" ph="CREATE TABLE... IF" />
+            <marker date="1465164089000" expanded="true" signature="1101:1206" ph="CREATE TABLE... IF" />
+            <marker date="1465164089000" expanded="true" signature="1239:1279" ph="INSERT INTO user... " />
+            <marker date="1465164089000" expanded="true" signature="1312:1377" ph="INSERT INTO groceryItem... " />
+            <marker date="1465164089000" expanded="true" signature="1693:1729" ph="INSERT INTO user... " />
+            <marker date="1465164089000" expanded="true" signature="2511:2543" ph="SELECT * FRO... user" />
+            <marker date="1465164089000" expanded="true" signature="3265:3311" ph="INSERT INTO user... " />
+            <marker date="1465164089000" expanded="true" signature="5115:5165" ph="SELECT * FRO... groceryItem" />
+            <marker date="1465164089000" expanded="true" signature="6273:6358" ph="SELECT * FRO... groceryItem" />
+            <marker date="1465164089000" expanded="true" signature="6273:6360" ph="SELECT * FRO... groceryItem" />
+            <marker date="1465164089000" expanded="true" signature="6273:6364" ph="SELECT * FRO... groceryItem" />
+            <marker date="1465164089000" expanded="true" signature="7086:7202" ph="SELECT * FRO... GROCERYITEM" />
+            <marker date="1465164089000" expanded="true" signature="8313:8331" ph="UPDATE GROCE... " />
+            <marker date="1465164089000" expanded="true" signature="8313:8335" ph="UPDATE GROCE... " />
+            <marker date="1465164089000" expanded="true" signature="8313:8349" ph="UPDATE GROCE... " />
+            <marker date="1465164089000" expanded="true" signature="8313:8366" ph="UPDATE GROCE... " />
+            <marker date="1465164089000" expanded="true" signature="8313:8379" ph="UPDATE GROCE... " />
+            <marker date="1465164089000" expanded="true" signature="8947:8983" ph="DELETE FROM " />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/resources/templates/groceryList.mustache">
+    <entry file="file://$APPLICATION_CONFIG_DIR$/consoles/db/aef73e6a-3f8b-4f23-a427-fc30400fdbe4/console.sql">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="288">
-          <caret line="35" column="20" selection-start-line="35" selection-start-column="20" selection-end-line="35" selection-end-column="20" />
+        <state relative-caret-position="0">
+          <caret line="0" column="19" selection-start-line="0" selection-start-column="19" selection-end-line="0" selection-end-column="19" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="dbDummy://dbtable:/4f790b87/aef73e6a-3f8b-4f23-a427-fc30400fdbe4/MAIN.PUBLIC.USER">
+      <provider selected="true" editor-type-id="com.intellij.database.editor.DatabaseTableFileEditorProvider">
+        <state>
+          <filtering enabled="true" />
+        </state>
+      </provider>
+      <provider editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding />
         </state>
       </provider>

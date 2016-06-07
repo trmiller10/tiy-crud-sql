@@ -22,7 +22,7 @@ import static org.hamcrest.MatcherAssert.assertThat;
  */
 public class CrudServiceTest {
 
-/*
+
     //create a connection to be shared across the entire class
     Connection connection;
 
@@ -30,7 +30,7 @@ public class CrudServiceTest {
     CrudService crudService;
 
     @Before
-    public void before() throws SQLException{
+    public void before() throws SQLException {
         //create a TCP server
         //make sure H2 dependency is in pom.xml
         Server server = Server.createTcpServer("-baseDir", "./data").start();
@@ -39,13 +39,13 @@ public class CrudServiceTest {
         //instantiate new service
         crudService = new CrudService(connection);
     }
-*/
+
     /**
      * Given: a new database
      * When: database is initialized
      * Then: we get two tables: User and GroceryItem
      */
-/*
+
     @Test
     public void testInitialization() throws SQLException {
         //arrange
@@ -62,14 +62,14 @@ public class CrudServiceTest {
 
         ArrayList<String> tableNames = new ArrayList<>();
 
-        while(tables.next()){
+        while (tables.next()) {
             //get TABLE_NAME strings and add them to tableNames array list
             tableNames.add(tables.getString("TABLE_NAME"));
         }
 
         assertThat(tableNames, hasItems("USER", "GROCERYITEM"));
     }
-*/
+
     //todo: create a test for insertUser and selectUser
 
     /**
@@ -77,12 +77,14 @@ public class CrudServiceTest {
      * When: a new user is inserted
      * Then: then user id is set and user exists in database
      */
-/*
+
     @Test
     public void whenUserInsertedThenUserExists() throws SQLException, InterruptedException {
 
         //arrange
         CrudService service = new CrudService(connection);
+        service.initDatabase();
+
         service.insertUser(connection, "test", "pw");
 
         //act
@@ -91,12 +93,12 @@ public class CrudServiceTest {
         //assert
         assertThat(user.getName(), is("test"));
         int id = user.getId();
-
+/*
         while (true) {
             Thread.sleep(100);
-        }
+        }*/
     }
-*/
+
     /**
      *
      * DUPLICATE OF ABOVE TEST
@@ -127,17 +129,19 @@ public class CrudServiceTest {
      * When: a grocery item is inserted
      * Then: grocery item id is set and grocery item exists in database
      */
-/*
+
     @Test
     public void testGroceryItemDatabase() throws SQLException, InterruptedException {
 
         //arrange
         CrudService service = new CrudService(connection);
+        service.initDatabase();
+
         service.insertUser(connection, "test", "pw");
         User testUser = service.selectUser(connection, "test");
         GroceryItem testItem = new GroceryItem(0, "apples", "a lot", testUser.getId());
         //act
-        service.insertEntry(connection, testItem.getId(), testItem.getItemName(), testItem.getItemQuantity(), testItem.getUserId());
+        service.insertEntry(connection, testItem);
 
         GroceryItem returnedItem = service.selectEntry(connection, testItem.getId());
 
@@ -148,9 +152,9 @@ public class CrudServiceTest {
         while(true) {
             Thread.sleep(100);
         }
-
-    }
 */
+    }
+
     /**
      * Given: a grocery item database with grocery item entries
      * When: a grocery item is selected by entering its name
@@ -174,22 +178,30 @@ public class CrudServiceTest {
 
 
     //todo: create a test for selectEntries
+
     /**
      * Given: two databases with users and grocery items
      * When: selectEntries is run
      * Then: return an array list with all tracked objects
-     *//*
-*//*
+     */
+
+    //GET THIS WORKING
     @Test
-    public void whenUsersSelectedThenUsersAndGroceryItemArrayListReturned() throws SQLException{
+    public void whenUsersSelectedThenUsersAndGroceryItemArrayListReturned() throws SQLException {
         //arrange
         CrudService service = new CrudService(connection);
-        service.insertEntry(groceryItem);
+        service.initDatabase();
 
-        GroceryItem groceryItem = new GroceryItem(1, "testItem", "quite a few");
-
+        service.insertUser(connection, "test", "pw");
+        User testUser = service.selectUser(connection, "test");
+        GroceryItem testItem = new GroceryItem(0, "apples", "a lot", testUser.getId());
+        service.insertEntry(connection, testItem);
+        GroceryItem testItemTwo = new GroceryItem(1, "bananas", "a bunch", testUser.getId());
+        service.insertEntry(connection, testItem);
+        GroceryItem testItemThree = new GroceryItem(1, "oranges", "200", testUser.getId());
+        service.insertEntry(connection, testItem);
         //act
-        ArrayList<GroceryItem> selectList = service.selectEntries(connection);
+        ArrayList<GroceryItem> selectList = service.selectEntries(connection, testUser.getId());
 
         //assert
 
@@ -197,11 +209,12 @@ public class CrudServiceTest {
 
     }
 
+    //GET THIS WORKING
     @After
-    public void after() throws SQLException {
+    public void after() throws SQLException, NullPointerException{
         //close the connection
         connection.close();
-        /*
+
         //deletes any database files in ~/Projects/ForumWeb/data
         File dataFolder = new File("data");
         if(dataFolder.exists()) {
@@ -210,8 +223,9 @@ public class CrudServiceTest {
                     file.delete();
                 }
             }
-        }*/
+        }
     }
+}
 
 
 
